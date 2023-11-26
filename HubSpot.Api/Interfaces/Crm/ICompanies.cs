@@ -5,14 +5,14 @@ namespace HubSpot.Api.Interfaces.Crm;
 
 public interface ICompanies
 {
-	[Post("/objects/companies")]
+	[Post("/crm/v3/objects/companies")]
 	Task<HubSpotObject> CreateAsync(
 		[Body] CreateRequest createRequest,
 		CancellationToken cancellationToken = default
 	);
 
-	[Get("/objects/companies")]
-	Task<Page> GetPageAsync(
+	[Get("/crm/v3/objects/companies")]
+	Task<CrmPage> GetPageAsync(
 		int? limit = null,
 		string? after = null,
 		ICollection<string>? properties = null,
@@ -22,7 +22,7 @@ public interface ICompanies
 		CancellationToken cancellationToken = default
 	);
 
-	[Get("/objects/companies/{id}")]
+	[Get("/crm/v3/objects/companies/{id}")]
 	Task<HubSpotObject> GetAsync(
 		string id,
 		[Query] IReadOnlyList<string>? properties = null,
@@ -32,13 +32,13 @@ public interface ICompanies
 		CancellationToken cancellationToken = default
 	);
 
-	[Delete("/objects/companies/{id}")]
+	[Delete("/crm/v3/objects/companies/{id}")]
 	Task ArchiveAsync(
 		string id,
 		CancellationToken cancellationToken = default
 	);
 
-	[Post("/objects/companies/gdpr-delete")]
+	[Post("/crm/v3/objects/companies/gdpr-delete")]
 	Task DeleteAsync(
 		[Body] DeleteRequest deleteRequest,
 		CancellationToken cancellationToken = default

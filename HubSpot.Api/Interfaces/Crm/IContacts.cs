@@ -5,13 +5,13 @@ namespace HubSpot.Api.Interfaces.Crm;
 
 public interface IContacts
 {
-	[Post("/objects/contacts")]
+	[Post("/crm/v3/objects/contacts")]
 	Task<HubSpotObject> CreateAsync(
 		[Body] CreateRequest createRequest,
 		CancellationToken cancellationToken = default
 	);
 
-	[Get("/objects/contacts/{id}")]
+	[Get("/crm/v3/objects/contacts/{id}")]
 	Task<HubSpotObject> GetAsync(
 		string id,
 		[Query] IReadOnlyList<string>? properties = null,
@@ -21,8 +21,8 @@ public interface IContacts
 		CancellationToken cancellationToken = default
 	);
 
-	[Get("/objects/contacts")]
-	Task<Page> GetPageAsync(
+	[Get("/crm/v3/objects/contacts")]
+	Task<CrmPage> GetPageAsync(
 		int? limit = null,
 		string? after = null,
 		ICollection<string>? properties = null,
@@ -32,7 +32,7 @@ public interface IContacts
 		CancellationToken cancellationToken = default
 	);
 
-	[Post("/objects/contacts/gdpr-delete")]
+	[Post("/crm/v3/objects/contacts/gdpr-delete")]
 	Task DeleteAsync(
 		[Body] DeleteRequest deleteRequest,
 		CancellationToken cancellationToken = default

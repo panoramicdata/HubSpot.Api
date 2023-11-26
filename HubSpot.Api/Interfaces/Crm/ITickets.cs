@@ -5,8 +5,8 @@ namespace HubSpot.Api.Interfaces.Crm;
 
 public interface ITickets
 {
-	[Post("/objects/tickets")]
-	Task<Page> SearchAsync(
+	[Post("/crm/v3/objects/tickets")]
+	Task<CrmPage> SearchAsync(
 		[Body] SearchRequest searchRequest,
 		CancellationToken cancellationToken = default
 	);

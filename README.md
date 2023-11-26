@@ -44,46 +44,55 @@ This table provides a full list of HubSpot APIs, built from [this JSON file](htt
 
 We're aiming for full coverage and all Pull Requests are welcome.
 
+Key:
+
+| Symbol | API Coverage |
+| - | - |
+| :black_circle: | None |
+| :yellow_circle: | Partial |
+| :green_square: | Full |
+
+
 | Type | Object | Documentation | HubSpot API Status | Nuget Coverage |
 | - | - | - | - | - |
-| Analytics | Analytics | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/events/v3/send) | Developer Preview | None |
-| Auth | Auth | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/oauth/v1) | Latest | None |
-| Automation | Automation | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/automation/v4/actions) | Latest | None |
-| Business Units | Business Units | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/business-units/v3) | Stable | None |
-| Communication Preferences | Communication Preferences | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/communication-preferences/v3) | Developer Preview | None |
-| Conversations | Conversations | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/conversations/v3/visitor-identification) | Latest | None |
-| CMS | Domains | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/domains) | Developer Preview | None |
-| CMS | Source Code | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/source-code) | Developer Preview | None |
-| CMS | Blog Posts | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/blogs/blog-posts) | Developer Preview | None |
-| CMS | Authors | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/blogs/authors) | Developer Preview | None |
-| CMS | URL Redirects | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/url-redirects) | Developer Preview | None |
-| CMS | Performance | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/performance) | Developer Preview | None |
-| CMS | Hubdb | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/hubdb) | Developer Preview | None |
-| CMS | Tags | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/blogs/tags) | Developer Preview | None |
-| CMS | Audit Logs | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/audit-logs) | Developer Preview | None |
-| CMS | Site Search | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/site-search) | Developer Preview | None |
-| CRM | Accounting | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/extensions/accounting) | Latest | None |
-| CRM | Associations | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/associations) | Latest | None |
-| CRM | Associations (v4) | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v4/associations) | Stable | None |
-| CRM | Calling | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/extensions/calling) | Latest | None |
-| CRM | Companies | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/companies) | Latest | Partial |
-| CRM | Contacts | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/contacts) | Latest | Partial |
-| CRM | Extensions | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/extensions/sales-objects/v1/object-types) | Latest | None |
-| CRM | Deals | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/deals) | Latest | Partial |
-| CRM | Feedback Submissions | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/feedback_submissions) | Developer Preview | Partial |
-| CRM | Imports | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/imports) | Latest | None |
-| CRM | Line Items | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/line_items) | Latest | Partial |
-| CRM | Objects | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects) | Latest | None |
-| CRM | Owners | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/owners) | Latest | None |
-| CRM | Pipelines | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/pipelines) | Latest | None |
-| CRM | Properties | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/properties) | Latest | None |
-| CRM | Quotes | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/quotes) | Latest | None |
-| CRM | Schemas | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/schemas) | Latest | None |
-| CRM | Tickets | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/tickets) | Latest | Partial |
-| CRM | Timeline | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/timeline) | Latest | None |
-| CRM | Videoconferencing | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/extensions/videoconferencing) | Latest | None |
-| Events | Events | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/events/v3/events) | Developer Preview | None |
-| Marketing | Marketing Events (beta) | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/marketing/v3/marketing-events-beta) | Latest | None |
-| Marketing | Transactional | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/marketing/v3/transactional) | Latest | None |
-| Webhooks | Webhooks | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/webhooks/v3) | Latest | None |
+| Analytics | Analytics | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/events/v3/send) | Developer Preview | :black_circle: |
+| Auth | Auth | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/oauth/v1) | Latest | :black_circle: |
+| Automation | Automation | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/automation/v4/actions) | Latest | :black_circle: |
+| Business Units | Business Units | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/business-units/v3) | Stable | :black_circle: |
+| Communication Preferences | Communication Preferences | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/communication-preferences/v3) | Developer Preview | :black_circle: |
+| Conversations | Conversations | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/conversations/v3/visitor-identification) | Latest | :black_circle: |
+| CMS | Domains | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/domains) | Developer Preview | :yellow_circle: |
+| CMS | Source Code | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/source-code) | Developer Preview | :black_circle: |
+| CMS | Blog Posts | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/blogs/blog-posts) | Developer Preview | :black_circle: |
+| CMS | Authors | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/blogs/authors) | Developer Preview | :black_circle: |
+| CMS | URL Redirects | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/url-redirects) | Developer Preview | :black_circle: |
+| CMS | Performance | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/performance) | Developer Preview | :black_circle: |
+| CMS | Hubdb | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/hubdb) | Developer Preview | :black_circle: |
+| CMS | Tags | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/blogs/tags) | Developer Preview | :black_circle: |
+| CMS | Audit Logs | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/audit-logs) | Developer Preview | :black_circle: |
+| CMS | Site Search | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/cms/v3/site-search) | Developer Preview | :black_circle: |
+| CRM | Accounting | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/extensions/accounting) | Latest | :black_circle: |
+| CRM | Associations | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/associations) | Latest | :black_circle: |
+| CRM | Associations (v4) | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v4/associations) | Stable | :black_circle: |
+| CRM | Calling | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/extensions/calling) | Latest | :black_circle: |
+| CRM | Companies | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/companies) | Latest | :yellow_circle: |
+| CRM | Contacts | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/contacts) | Latest | :yellow_circle: |
+| CRM | Extensions | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/extensions/sales-objects/v1/object-types) | Latest | :black_circle: |
+| CRM | Deals | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/deals) | Latest | :yellow_circle: |
+| CRM | Feedback Submissions | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/feedback_submissions) | Developer Preview | :yellow_circle: |
+| CRM | Imports | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/imports) | Latest | :black_circle: |
+| CRM | Line Items | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/line_items) | Latest | :yellow_circle: |
+| CRM | Objects | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects) | Latest | :black_circle: |
+| CRM | Owners | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/owners) | Latest | :black_circle: |
+| CRM | Pipelines | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/pipelines) | Latest | :black_circle: |
+| CRM | Properties | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/properties) | Latest | :black_circle: |
+| CRM | Quotes | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/quotes) | Latest | :black_circle: |
+| CRM | Schemas | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/schemas) | Latest | :black_circle: |
+| CRM | Tickets | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/objects/tickets) | Latest | :yellow_circle: |
+| CRM | Timeline | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/timeline) | Latest | :black_circle: |
+| CRM | Videoconferencing | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/crm/v3/extensions/videoconferencing) | Latest | :black_circle: |
+| Events | Events | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/events/v3/events) | Developer Preview | :black_circle: |
+| Marketing | Marketing Events (beta) | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/marketing/v3/marketing-events-beta) | Latest | :black_circle: |
+| Marketing | Transactional | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/marketing/v3/transactional) | Latest | :black_circle: |
+| Webhooks | Webhooks | [Link](https://api.hubspot.com/api-catalog-public/v1/apis/webhooks/v3) | Latest | :black_circle: |
  

@@ -5,8 +5,8 @@ namespace HubSpot.Api.Interfaces.Crm;
 
 public interface IOwners
 {
-	[Get("/owners")]
-	Task<Page> GetPageAsync(
+	[Get("/crm/v3/owners")]
+	Task<CrmPage> GetPageAsync(
 		int? limit = null,
 		string? after = null,
 		ICollection<string>? properties = null,

@@ -1,4 +1,5 @@
-﻿using Refit;
+﻿using HubSpot.Api.Sections;
+using Refit;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -6,7 +7,7 @@ namespace HubSpot.Api;
 
 public class HubSpotClient : IDisposable
 {
-	private const string HubSpotRootUrl = "https://api.hubapi.com/crm/v3";
+	private const string HubSpotRootUrl = "https://api.hubapi.com";
 	private readonly HttpClient _httpClient;
 	private bool disposedValue;
 
@@ -52,15 +53,25 @@ public class HubSpotClient : IDisposable
 	}
 
 	public Analytics Analytics { get; }
+
 	public Auth Auth { get; }
+
 	public Automation Automation { get; }
+
 	public BusinessUnits BusinessUnits { get; }
+
 	public CommunicationPreferences CommunicationPreferences { get; }
+
 	public Conversations Conversations { get; }
+
 	public Cms Cms { get; }
+
 	public Crm Crm { get; }
+
 	public Events Events { get; }
+
 	public Marketing Marketing { get; }
+
 	public Webhooks Webhooks { get; }
 
 	protected virtual void Dispose(bool disposing)

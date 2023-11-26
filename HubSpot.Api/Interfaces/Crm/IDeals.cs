@@ -5,8 +5,8 @@ namespace HubSpot.Api.Interfaces.Crm;
 
 public interface IDeals
 {
-	[Get("/objects/deals")]
-	Task<Page> GetPageAsync(
+	[Get("/crm/v3/objects/deals")]
+	Task<CrmPage> GetPageAsync(
 		int? limit = null,
 		string? after = null,
 		ICollection<string>? properties = null,
