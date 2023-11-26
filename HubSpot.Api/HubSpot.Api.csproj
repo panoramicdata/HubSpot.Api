@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<Authors>Panoramic Data Limited</Authors>
+		<Company>Panoramic Data Limited</Company>
+		<Description>HubSpot API client for .NET</Description>
+		<Copyright>Copyright © Panoramic Data Limited 2023</Copyright>
+		<PackageIcon>Icon.png</PackageIcon>
+		<PackageTags>HubSpot API REST</PackageTags>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/panoramicdata/HubSpot.Api/</RepositoryUrl>
+		<ApplicationIcon>HubSpot.ico</ApplicationIcon>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AnalysisLevel>latest-recommended</AnalysisLevel>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>HubSpot.Api</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>Initial release</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Nerdbank.GitVersioning" Version="3.6.133">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Refit" Version="7.0.0" />
+	</ItemGroup>
+
+</Project>
