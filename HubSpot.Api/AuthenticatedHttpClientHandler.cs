@@ -1,12 +1,20 @@
-﻿namespace HubSpot.Api;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
-internal class AuthenticatedHttpClientHandler : HttpClientHandler
+namespace HubSpot.Api;
+
+internal sealed class AuthenticatedHttpClientHandler : HttpClientHandler
 {
 	private readonly HubSpotClientOptions _options;
+	private readonly ILogger _logger;
+	private readonly LogLevel _levelToLogAt = LogLevel.Trace;
 
 	public AuthenticatedHttpClientHandler(HubSpotClientOptions hubSpotClientOptions)
 	{
-		this._options = hubSpotClientOptions;
+		_options = hubSpotClientOptions;
+
+		// Use the default logger if no factory is provided
+		_logger = _options.LoggerFactory?.CreateLogger<AuthenticatedHttpClientHandler>() as ILogger ?? NullLogger.Instance;
 	}
 
 	protected override async Task<HttpResponseMessage> SendAsync(
@@ -33,7 +41,6 @@ internal class AuthenticatedHttpClientHandler : HttpClientHandler
 		var logPrefix = $"Request {Guid.NewGuid()}: ";
 
 		// Add the request headers
-		request.Headers.Add("X-Cisco-Meraki-API-Key", _options.ApiKey);
 		if (_options.UserAgent is not null)
 		{
 			request.Headers.Add("User-Agent", _options.UserAgent);
@@ -56,12 +63,8 @@ internal class AuthenticatedHttpClientHandler : HttpClientHandler
 				}
 			}
 
-			LastRequestUri = request.RequestUri.ToString();
-
 			// Complete the action
 			var httpResponseMessage = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
-
-			_merakiClient.LastResponseHeaders = httpResponseMessage.Headers;
 
 			// Only do diagnostic logging if we're at the level we want to enable for as this is more efficient
 			if (_logger.IsEnabled(_levelToLogAt))
@@ -77,10 +80,6 @@ internal class AuthenticatedHttpClientHandler : HttpClientHandler
 			TimeSpan delay;
 			// As long as we were not given a back-off request then we'll return the response and any further StatusCode handling is up to the caller
 			var statusCodeInt = (int)httpResponseMessage.StatusCode;
-
-			// Record the status code
-			Statistics.TotalRequestCount++;
-			Statistics.RecordStatusCode(statusCodeInt);
 
 			switch (statusCodeInt)
 			{

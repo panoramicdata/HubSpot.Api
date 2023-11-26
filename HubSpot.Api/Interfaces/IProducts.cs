@@ -1,4 +1,5 @@
 ﻿namespace HubSpot.Api.Interfaces;
-public interface IDeals
+
+public interface IProducts
 {
 }

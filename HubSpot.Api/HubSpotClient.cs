@@ -1,10 +1,14 @@
 ﻿using HubSpot.Api.Interfaces;
+using Refit;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace HubSpot.Api;
 
 public class HubSpotClient : IDisposable
 {
-	private const string HubSpotRootUrl = "https://api.hubapi.com/crm/v3/objects/deals";
+	private const string HubSpotRootUrl = "https://api.hubapi.com/crm/v3/objects/";
+	private readonly HttpClient _httpClient;
 	private bool disposedValue;
 
 	public string Version { get; }
@@ -15,15 +19,43 @@ public class HubSpotClient : IDisposable
 		Version = $"{apiClientVersion.Major}.{apiClientVersion.Minor}.{apiClientVersion.Build}";
 
 		var authenticatingHttpClientHandler = new AuthenticatedHttpClientHandler(hubSpotClientOptions);
-		var httpClient = new HttpClient(authenticatingHttpClientHandler);
+		_httpClient = new HttpClient(authenticatingHttpClientHandler)
+		{
+			BaseAddress = new Uri(HubSpotRootUrl)
+		};
+		var refitSettings = new RefitSettings
+		{
+			CollectionFormat = CollectionFormat.Multi,
+			ContentSerializer = new SystemTextJsonContentSerializer(new JsonSerializerOptions
+			{
+				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+				DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+				Converters =
+				{
+					new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+				}
+			})
+		};
 
-		Deals = Refit.RestService.For<IDeals>(httpClient, HubSpotRootUrlFor("deals"));
+		Companies = RestService.For<ICompanies>(_httpClient, refitSettings);
+		Contacts = RestService.For<IContacts>(_httpClient, refitSettings);
+		Deals = RestService.For<IDeals>(_httpClient, refitSettings);
+		FeedbackSubmissions = RestService.For<IFeedbackSubmissions>(_httpClient, refitSettings);
+		LineItems = RestService.For<ILineItems>(_httpClient, refitSettings);
+		Products = RestService.For<IProducts>(_httpClient, refitSettings);
+		Quotes = RestService.For<IQuotes>(_httpClient, refitSettings);
+		Tickets = RestService.For<ITickets>(_httpClient, refitSettings);
 	}
 
+	public ICompanies Companies { get; set; }
+	public IContacts Contacts { get; set; }
 	public IDeals Deals { get; set; }
+	public IFeedbackSubmissions FeedbackSubmissions { get; set; }
+	public ILineItems LineItems { get; set; }
+	public IProducts Products { get; set; }
+	public IQuotes Quotes { get; set; }
+	public ITickets Tickets { get; set; }
 
-	private static string HubSpotRootUrlFor(string objectType)
-		=> $"{HubSpotRootUrl}/{objectType}";
 
 	protected virtual void Dispose(bool disposing)
 	{
@@ -31,21 +63,12 @@ public class HubSpotClient : IDisposable
 		{
 			if (disposing)
 			{
-				// TODO: dispose managed state (managed objects)
+				_httpClient.Dispose();
 			}
 
-			// TODO: free unmanaged resources (unmanaged objects) and override finalizer
-			// TODO: set large fields to null
 			disposedValue = true;
 		}
 	}
-
-	// // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-	// ~HubSpotClient()
-	// {
-	//     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-	//     Dispose(disposing: false);
-	// }
 
 	public void Dispose()
 	{
