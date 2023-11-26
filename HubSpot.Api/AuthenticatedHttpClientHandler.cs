@@ -14,7 +14,7 @@ internal sealed class AuthenticatedHttpClientHandler : HttpClientHandler
 		_options = hubSpotClientOptions;
 
 		// Use the default logger if no factory is provided
-		_logger = _options.LoggerFactory?.CreateLogger<AuthenticatedHttpClientHandler>() as ILogger ?? NullLogger.Instance;
+		_logger = _options.Logger ?? _options.LoggerFactory?.CreateLogger<AuthenticatedHttpClientHandler>() as ILogger ?? NullLogger.Instance;
 	}
 
 	protected override async Task<HttpResponseMessage> SendAsync(

@@ -8,9 +8,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0AECCB85-6C29-421E-9D59-B80C3F9E3847}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
 		HubSpot.Api.dic = HubSpot.Api.dic
 		version.json = version.json
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HubSpot.Api.Test", "HubSpot.Api.Test\HubSpot.Api.Test.csproj", "{EB2270F6-6945-451D-B3FC-35656D8635CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +25,10 @@ Global
 		{C87ECC8E-D669-459E-A7C4-F151096A2462}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C87ECC8E-D669-459E-A7C4-F151096A2462}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C87ECC8E-D669-459E-A7C4-F151096A2462}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB2270F6-6945-451D-B3FC-35656D8635CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB2270F6-6945-451D-B3FC-35656D8635CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB2270F6-6945-451D-B3FC-35656D8635CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB2270F6-6945-451D-B3FC-35656D8635CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
