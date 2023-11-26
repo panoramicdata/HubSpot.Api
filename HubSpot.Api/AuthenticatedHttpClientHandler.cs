@@ -89,7 +89,7 @@ internal sealed class AuthenticatedHttpClientHandler : HttpClientHandler
 					var headers = httpResponseMessage.Headers;
 					var foundHeader = headers.TryGetValues("Retry-After", out var retryAfterHeaders);
 					var retryAfterSecondsString = foundHeader
-						? retryAfterHeaders.FirstOrDefault() ?? "1"
+						? retryAfterHeaders?.FirstOrDefault() ?? "1"
 						: "1";
 					if (!int.TryParse(retryAfterSecondsString, out var retryAfterSeconds))
 					{

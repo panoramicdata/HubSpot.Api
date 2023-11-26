@@ -7,7 +7,7 @@ namespace HubSpot.Api.Test;
 public class TicketTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
 {
 	[Fact]
-	public async void GetPage_Succeeds()
+	public async void SearchAsync_Succeeds()
 	{
 		var page = await Client.Tickets.SearchAsync(new SearchRequest
 		{
