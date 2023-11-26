@@ -61,11 +61,11 @@ namespace HubSpot.Api {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to API key is not set.
+        ///   Looks up a localized string similar to Access Token is not set.
         /// </summary>
-        internal static string ApiKeyIsNotSet {
+        internal static string AccessTokenIsNotSet {
             get {
-                return ResourceManager.GetString("ApiKeyIsNotSet", resourceCulture);
+                return ResourceManager.GetString("AccessTokenIsNotSet", resourceCulture);
             }
         }
         

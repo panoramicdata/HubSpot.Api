@@ -7,7 +7,7 @@ namespace HubSpot.Api;
 
 public class HubSpotClient : IDisposable
 {
-	private const string HubSpotRootUrl = "https://api.hubapi.com/crm/v3/objects/";
+	private const string HubSpotRootUrl = "https://api.hubapi.com/crm/v3/objects";
 	private readonly HttpClient _httpClient;
 	private bool disposedValue;
 
@@ -32,7 +32,7 @@ public class HubSpotClient : IDisposable
 				DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 				Converters =
 				{
-					new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+					new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseUpper)
 				}
 			})
 		};

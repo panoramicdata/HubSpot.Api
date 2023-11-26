@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApiKeyIsNotSet" xml:space="preserve">
-    <value>API key is not set</value>
+  <data name="AccessTokenIsNotSet" xml:space="preserve">
+    <value>Access Token is not set</value>
   </data>
   <data name="OnlyReadOnlyOperationsPermitted" xml:space="preserve">
     <value>Only read-only operations permitted.</value>

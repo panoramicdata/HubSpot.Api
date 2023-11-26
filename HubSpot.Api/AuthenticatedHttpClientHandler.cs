@@ -31,12 +31,13 @@ internal sealed class AuthenticatedHttpClientHandler : HttpClientHandler
 			}
 		}
 
-		// Ensure the API key is set
-		if (_options.ApiKey?.Length == 0)
+		// Ensure the Access Token is set
+		if (_options.AccessToken?.Length == 0)
 		{
-			throw new InvalidOperationException(Resources.ApiKeyIsNotSet);
+			throw new InvalidOperationException(Resources.AccessTokenIsNotSet);
 		}
-		// The API Key is set
+		// The Access Token is set
+		request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {_options.AccessToken}");
 
 		var logPrefix = $"Request {Guid.NewGuid()}: ";
 
@@ -58,7 +59,7 @@ internal sealed class AuthenticatedHttpClientHandler : HttpClientHandler
 				_logger.Log(_levelToLogAt, "{LogPrefix}Request\r\n{Request}", logPrefix, request);
 				if (request.Content != null)
 				{
-					var requestContent = await request.Content.ReadAsStringAsync().ConfigureAwait(false);
+					var requestContent = await request.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
 					_logger.Log(_levelToLogAt, "{LogPrefix}RequestContent\r\n{RequestContent}", logPrefix, requestContent);
 				}
 			}
@@ -72,7 +73,7 @@ internal sealed class AuthenticatedHttpClientHandler : HttpClientHandler
 				_logger.Log(_levelToLogAt, "{LogPrefix}Response\r\n{HttpResponseMessage}", logPrefix, httpResponseMessage);
 				if (httpResponseMessage.Content != null)
 				{
-					var responseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+					var responseContent = await httpResponseMessage.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
 					_logger.Log(_levelToLogAt, "{LogPrefix}ResponseContent\r\n{ResponseContent}", logPrefix, responseContent);
 				}
 			}

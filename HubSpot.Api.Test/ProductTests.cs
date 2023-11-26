@@ -3,12 +3,12 @@ using Xunit.Abstractions;
 
 namespace HubSpot.Api.Test;
 
-public class DealTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
+public class ProductTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
 {
 	[Fact]
 	public async void GetPage_Succeeds()
 	{
-		var page = await Client.Deals.GetPageAsync();
+		var page = await Client.Products.GetPageAsync();
 		page.Results.Should().NotBeEmpty();
 	}
 }

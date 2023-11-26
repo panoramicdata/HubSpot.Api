@@ -7,7 +7,7 @@ public class HubSpotClientOptions
 	/// <summary>
 	/// The HubSpot API key to use for authentication
 	/// </summary>
-	public string ApiKey { get; set; } = string.Empty;
+	public string AccessToken { get; set; } = string.Empty;
 
 	/// <summary>
 	/// Whether to only allow read-only operations
