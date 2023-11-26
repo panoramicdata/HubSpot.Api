@@ -28,8 +28,8 @@ public static async Task GetAllDeals(ILogger logger, CancellationToken cancellat
 
 	var deals = await hubSpotClient
 		.Deals
-		.GetPageAsync(cancellationToken)
+		.GetPageAsync(cancellationToken: cancellationToken)
 		.ConfigureAwait(false);
 
-	Console.WriteLine($"Deal Count: {deals.Count}");
+	Console.WriteLine($"Deal Count: {deals.Results.Count}");
 }
