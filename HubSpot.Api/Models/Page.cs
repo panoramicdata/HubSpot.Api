@@ -5,8 +5,8 @@ namespace HubSpot.Api.Models;
 public class Page
 {
 	[JsonPropertyName("results")]
-	public required ICollection<Result> Results { get; set; }
+	public required ICollection<HubSpotObject> Results { get; set; }
 
 	[JsonPropertyName("paging")]
-	public required Paging Paging { get; set; }
+	public Paging? Paging { get; set; }
 }

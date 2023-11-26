@@ -2,7 +2,7 @@
 
 namespace HubSpot.Api.Models;
 
-public class Result
+public class HubSpotObject
 {
 	[JsonPropertyName("id")]
 	public required string Id { get; set; }

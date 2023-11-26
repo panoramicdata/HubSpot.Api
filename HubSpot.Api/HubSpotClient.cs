@@ -11,6 +11,16 @@ public class HubSpotClient : IDisposable
 	private readonly HttpClient _httpClient;
 	private bool disposedValue;
 
+	internal static SystemTextJsonContentSerializer SystemTextJsonContentSerializer = new(new JsonSerializerOptions
+	{
+		PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+		Converters =
+		{
+			new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseUpper)
+		}
+	});
+
 	public string Version { get; }
 
 	public HubSpotClient(HubSpotClientOptions hubSpotClientOptions)
@@ -26,15 +36,7 @@ public class HubSpotClient : IDisposable
 		var refitSettings = new RefitSettings
 		{
 			CollectionFormat = CollectionFormat.Multi,
-			ContentSerializer = new SystemTextJsonContentSerializer(new JsonSerializerOptions
-			{
-				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-				DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-				Converters =
-				{
-					new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseUpper)
-				}
-			})
+			ContentSerializer = SystemTextJsonContentSerializer
 		};
 
 		Companies = RestService.For<ICompanies>(_httpClient, refitSettings);

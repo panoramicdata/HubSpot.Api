@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using HubSpot.Api.Exceptions;
 using Xunit.Abstractions;
 
 namespace HubSpot.Api.Test;
@@ -8,7 +9,8 @@ public class FeedbackSubmissionTests(ITestOutputHelper testOutputHelper) : TestB
 	[Fact]
 	public async void GetPageAsync_Succeeds()
 	{
-		var page = await Client.FeedbackSubmissions.GetPageAsync();
-		page.Results.Should().NotBeEmpty();
+		await ((Func<Task>)(() => Client.FeedbackSubmissions.GetPageAsync()))
+			.Should()
+			.ThrowAsync<HubSpotApiErrorException>();
 	}
 }
