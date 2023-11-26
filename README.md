@@ -15,19 +15,19 @@ using HubSpot.Api;
 
 [...]
 
-public static async Task GetAllDevices(ILogger logger, CancellationToken cancellationToken)
+public static async Task GetAllDeals(ILogger logger, CancellationToken cancellationToken)
 {
 	using var hubSpotClient = new HubSpotClient(
 		new HubSpotClientOptions
 		{
-			Key = "accessKey",
+			AccessToken = "[ACCESSTOKEN]",
 			Logger = logger
 		}
 	);
 
 	var deals = await hubSpotClient
 		.Deals
-		.GetAllAsync(cancellationToken)
+		.GetPageAsync(cancellationToken)
 		.ConfigureAwait(false);
 
 	Console.WriteLine($"Deal Count: {deals.Count}");
