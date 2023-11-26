@@ -5,7 +5,7 @@ namespace HubSpot.Api.Interfaces;
 
 public interface IFeedbackSubmissions
 {
-	[Get("/feedbackSubmissions")]
+	[Get("/feedback_submissions")]
 	Task<Page> GetPageAsync(
 		int? limit = null,
 		string? after = null,

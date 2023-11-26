@@ -5,7 +5,7 @@ namespace HubSpot.Api.Interfaces;
 
 public interface ILineItems
 {
-	[Get("/lineItems")]
+	[Get("/line_items")]
 	Task<Page> GetPageAsync(
 		int? limit = null,
 		string? after = null,
