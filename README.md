@@ -6,7 +6,7 @@ The HubSpot REST API nuget package, authored by Panoramic Data Limited.
 [![Nuget](https://img.shields.io/nuget/dt/HubSpot.Api)](https://www.nuget.org/packages/HubSpot.Api/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/59bb860a1129452d8211893953ec056f)](https://app.codacy.com/gh/panoramicdata/HubSpot.Api/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=panoramicdata/HubSpot.Api&amp;utm_campaign=Badge_grade)
-If you want some LogicMonitor software developed, come find us at: https://www.panoramicdata.com/ !
+If you want some HubSpot software developed, come find us at: https://www.panoramicdata.com/ !
 
 A simple example:
 
