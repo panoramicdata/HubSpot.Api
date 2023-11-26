@@ -40,7 +40,7 @@ public static async Task GetAllDeals(ILogger logger, CancellationToken cancellat
 ---
 ## API Coverage
 
-This table provides a full list of HubSpot APIs, including references to their documentation and coverage in this library.
+This table provides a full list of HubSpot APIs, built from [this JSON file](https://api.hubspot.com/api-catalog-public/v1/apis), including references to their documentation and coverage in this library.
 
 We're aiming for full coverage and all Pull Requests are welcome.
 
