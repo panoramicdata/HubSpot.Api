@@ -1,11 +1,11 @@
 ﻿using HubSpot.Api.Models;
 using Refit;
 
-namespace HubSpot.Api.Interfaces;
+namespace HubSpot.Api.Interfaces.Crm;
 
 public interface ITickets
 {
-	[Post("/tickets")]
+	[Post("/objects/tickets")]
 	Task<Page> SearchAsync(
 		[Body] SearchRequest searchRequest,
 		CancellationToken cancellationToken = default

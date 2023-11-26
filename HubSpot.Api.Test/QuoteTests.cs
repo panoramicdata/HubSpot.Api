@@ -8,7 +8,7 @@ public class QuoteTests(ITestOutputHelper testOutputHelper) : TestBase(testOutpu
 	[Fact]
 	public async void GetPageAsync_Succeeds()
 	{
-		var page = await Client.Quotes.GetPageAsync();
+		var page = await Client.Crm.Quotes.GetPageAsync();
 		page.Results.Should().NotBeEmpty();
 	}
 }

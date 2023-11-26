@@ -1,5 +1,4 @@
-﻿using HubSpot.Api.Interfaces;
-using Refit;
+﻿using Refit;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -7,7 +6,7 @@ namespace HubSpot.Api;
 
 public class HubSpotClient : IDisposable
 {
-	private const string HubSpotRootUrl = "https://api.hubapi.com/crm/v3/objects";
+	private const string HubSpotRootUrl = "https://api.hubapi.com/crm/v3";
 	private readonly HttpClient _httpClient;
 	private bool disposedValue;
 
@@ -39,25 +38,30 @@ public class HubSpotClient : IDisposable
 			ContentSerializer = SystemTextJsonContentSerializer
 		};
 
-		Companies = RestService.For<ICompanies>(_httpClient, refitSettings);
-		Contacts = RestService.For<IContacts>(_httpClient, refitSettings);
-		Deals = RestService.For<IDeals>(_httpClient, refitSettings);
-		FeedbackSubmissions = RestService.For<IFeedbackSubmissions>(_httpClient, refitSettings);
-		LineItems = RestService.For<ILineItems>(_httpClient, refitSettings);
-		Products = RestService.For<IProducts>(_httpClient, refitSettings);
-		Quotes = RestService.For<IQuotes>(_httpClient, refitSettings);
-		Tickets = RestService.For<ITickets>(_httpClient, refitSettings);
+		Analytics = new(_httpClient, refitSettings);
+		Auth = new(_httpClient, refitSettings);
+		Automation = new(_httpClient, refitSettings);
+		BusinessUnits = new(_httpClient, refitSettings);
+		CommunicationPreferences = new(_httpClient, refitSettings);
+		Conversations = new(_httpClient, refitSettings);
+		Cms = new(_httpClient, refitSettings);
+		Crm = new(_httpClient, refitSettings);
+		Events = new(_httpClient, refitSettings);
+		Marketing = new(_httpClient, refitSettings);
+		Webhooks = new(_httpClient, refitSettings);
 	}
 
-	public ICompanies Companies { get; set; }
-	public IContacts Contacts { get; set; }
-	public IDeals Deals { get; set; }
-	public IFeedbackSubmissions FeedbackSubmissions { get; set; }
-	public ILineItems LineItems { get; set; }
-	public IProducts Products { get; set; }
-	public IQuotes Quotes { get; set; }
-	public ITickets Tickets { get; set; }
-
+	public Analytics Analytics { get; }
+	public Auth Auth { get; }
+	public Automation Automation { get; }
+	public BusinessUnits BusinessUnits { get; }
+	public CommunicationPreferences CommunicationPreferences { get; }
+	public Conversations Conversations { get; }
+	public Cms Cms { get; }
+	public Crm Crm { get; }
+	public Events Events { get; }
+	public Marketing Marketing { get; }
+	public Webhooks Webhooks { get; }
 
 	protected virtual void Dispose(bool disposing)
 	{

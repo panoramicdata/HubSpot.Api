@@ -9,7 +9,7 @@ public class FeedbackSubmissionTests(ITestOutputHelper testOutputHelper) : TestB
 	[Fact]
 	public async void GetPageAsync_Succeeds()
 	{
-		await ((Func<Task>)(() => Client.FeedbackSubmissions.GetPageAsync()))
+		await ((Func<Task>)(() => Client.Crm.FeedbackSubmissions.GetPageAsync()))
 			.Should()
 			.ThrowAsync<HubSpotApiErrorException>();
 	}

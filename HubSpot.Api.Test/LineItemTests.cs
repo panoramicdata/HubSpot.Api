@@ -8,7 +8,7 @@ public class LineItemTests(ITestOutputHelper testOutputHelper) : TestBase(testOu
 	[Fact]
 	public async void GetPageAsync_Succeeds()
 	{
-		var page = await Client.LineItems.GetPageAsync();
+		var page = await Client.Crm.LineItems.GetPageAsync();
 		page.Results.Should().NotBeEmpty();
 	}
 }

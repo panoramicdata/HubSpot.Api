@@ -58,4 +58,16 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Interfaces\Analytics\" />
+	  <Folder Include="Interfaces\Auth\" />
+	  <Folder Include="Interfaces\Automation\" />
+	  <Folder Include="Interfaces\BusinessUnits\" />
+	  <Folder Include="Interfaces\Cms\" />
+	  <Folder Include="Interfaces\CommunicationPreferences\" />
+	  <Folder Include="Interfaces\Conversations\" />
+	  <Folder Include="Interfaces\Events\" />
+	  <Folder Include="Interfaces\Webhooks\" />
+	</ItemGroup>
+
 </Project>

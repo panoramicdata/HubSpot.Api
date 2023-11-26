@@ -1,11 +1,11 @@
 ﻿using HubSpot.Api.Models;
 using Refit;
 
-namespace HubSpot.Api.Interfaces;
+namespace HubSpot.Api.Interfaces.Crm;
 
-public interface IFeedbackSubmissions
+public interface IDeals
 {
-	[Get("/feedback_submissions")]
+	[Get("/objects/deals")]
 	Task<Page> GetPageAsync(
 		int? limit = null,
 		string? after = null,
@@ -16,3 +16,4 @@ public interface IFeedbackSubmissions
 		CancellationToken cancellationToken = default
 	);
 }
+

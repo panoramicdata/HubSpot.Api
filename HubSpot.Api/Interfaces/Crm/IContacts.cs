@@ -1,23 +1,17 @@
 ﻿using HubSpot.Api.Models;
 using Refit;
 
-namespace HubSpot.Api.Interfaces;
+namespace HubSpot.Api.Interfaces.Crm;
 
 public interface IContacts
 {
-	[Post("/contacts")]
+	[Post("/objects/contacts")]
 	Task<HubSpotObject> CreateAsync(
 		[Body] CreateRequest createRequest,
 		CancellationToken cancellationToken = default
 	);
 
-	[Post("/contacts/gdpr-delete")]
-	Task DeleteAsync(
-		[Body] DeleteRequest deleteRequest,
-		CancellationToken cancellationToken = default
-	);
-
-	[Get("/contacts/{id}")]
+	[Get("/objects/contacts/{id}")]
 	Task<HubSpotObject> GetAsync(
 		string id,
 		[Query] IReadOnlyList<string>? properties = null,
@@ -27,7 +21,7 @@ public interface IContacts
 		CancellationToken cancellationToken = default
 	);
 
-	[Get("/contacts")]
+	[Get("/objects/contacts")]
 	Task<Page> GetPageAsync(
 		int? limit = null,
 		string? after = null,
@@ -35,6 +29,12 @@ public interface IContacts
 		ICollection<string>? propertiesWithHistory = null,
 		ICollection<string>? associations = null,
 		bool? archived = null,
+		CancellationToken cancellationToken = default
+	);
+
+	[Post("/objects/contacts/gdpr-delete")]
+	Task DeleteAsync(
+		[Body] DeleteRequest deleteRequest,
 		CancellationToken cancellationToken = default
 	);
 }

@@ -9,7 +9,7 @@ public class TicketTests(ITestOutputHelper testOutputHelper) : TestBase(testOutp
 	[Fact]
 	public async void SearchAsync_Succeeds()
 	{
-		var page = await Client.Tickets.SearchAsync(new SearchRequest
+		var page = await Client.Crm.Tickets.SearchAsync(new SearchRequest
 		{
 			After = "",
 			Properties = [

@@ -11,7 +11,7 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 	[Fact]
 	public async void GetPageAsync_Succeeds()
 	{
-		var page = await Client.Contacts.GetPageAsync();
+		var page = await Client.Crm.Contacts.GetPageAsync();
 		page.Results.Should().NotBeEmpty();
 	}
 
@@ -35,7 +35,7 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		HubSpotObject createdObject;
 		try
 		{
-			createdObject = await Client.Contacts.CreateAsync(createRequest);
+			createdObject = await Client.Crm.Contacts.CreateAsync(createRequest);
 			createdObject.Should().NotBeNull();
 		}
 		catch (HubSpotApiErrorException e) when (e.StatusCode == HttpStatusCode.Conflict)
@@ -52,13 +52,13 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		}
 
 		// Re-read the item
-		var readObject = await Client.Contacts.GetAsync(createdObject.Id);
+		var readObject = await Client.Crm.Contacts.GetAsync(createdObject.Id);
 		readObject.Should().NotBeNull();
 		readObject.Id.Should().Be(createdObject.Id);
 		readObject.Properties.Should().NotBeEmpty();
 
 		// Delete the item
-		await Client.Contacts.DeleteAsync(new DeleteRequest
+		await Client.Crm.Contacts.DeleteAsync(new DeleteRequest
 		{
 			ObjectId = createdObject.Id
 		}

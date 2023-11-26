@@ -1,11 +1,11 @@
 ﻿using HubSpot.Api.Models;
 using Refit;
 
-namespace HubSpot.Api.Interfaces;
+namespace HubSpot.Api.Interfaces.Crm;
 
-public interface ILineItems
+public interface IFeedbackSubmissions
 {
-	[Get("/line_items")]
+	[Get("/objects/feedback_submissions")]
 	Task<Page> GetPageAsync(
 		int? limit = null,
 		string? after = null,

@@ -1,10 +1,11 @@
 ﻿using HubSpot.Api.Models;
 using Refit;
 
-namespace HubSpot.Api.Interfaces;
-public interface IDeals
+namespace HubSpot.Api.Interfaces.Crm;
+
+public interface IOwners
 {
-	[Get("/deals")]
+	[Get("/owners")]
 	Task<Page> GetPageAsync(
 		int? limit = null,
 		string? after = null,
@@ -15,3 +16,4 @@ public interface IDeals
 		CancellationToken cancellationToken = default
 	);
 }
+

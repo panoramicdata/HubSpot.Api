@@ -1,11 +1,11 @@
 ﻿using HubSpot.Api.Models;
 using Refit;
 
-namespace HubSpot.Api.Interfaces;
+namespace HubSpot.Api.Interfaces.Crm;
 
-public interface IProducts
+public interface IQuotes
 {
-	[Get("/products")]
+	[Get("/objects/quotes")]
 	Task<Page> GetPageAsync(
 		int? limit = null,
 		string? after = null,

@@ -8,7 +8,7 @@ public class ProductTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 	[Fact]
 	public async void GetPageAsync_Succeeds()
 	{
-		var page = await Client.Products.GetPageAsync();
+		var page = await Client.Crm.Products.GetPageAsync();
 		page.Results.Should().NotBeEmpty();
 	}
 }
