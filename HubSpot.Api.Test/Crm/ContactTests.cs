@@ -59,7 +59,7 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 	{
 		var createRequest = new CreateRequest
 		{
-			Properties = new Dictionary<string, object?>
+			Properties = new Dictionary<string, string>
 			{
 				{ "email", "test@test.com"},
 				{ "phone", "+44 1234 567 890"},
@@ -95,6 +95,23 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		readObject.Should().NotBeNull();
 		readObject.Id.Should().Be(createdObject.Id);
 		readObject.Properties.Should().NotBeEmpty();
+
+		// Update the item
+		var patchInfo = new HubSpotPatchObject
+		{
+			Properties = new Dictionary<string, object?>
+			{
+				{ "firstname", "Robert"},
+			}
+		};
+		readObject = await Client.Crm.Contacts.PatchAsync(readObject.Id, patchInfo);
+
+		// Re-read the item and check the update
+		readObject = await Client.Crm.Contacts.GetAsync(createdObject.Id);
+		readObject.Should().NotBeNull();
+		readObject.Id.Should().Be(createdObject.Id);
+		readObject.Properties.Should().NotBeEmpty();
+		readObject.Properties["firstname"].Should().Be("Robert");
 
 		// Delete the item
 		await Client.Crm.Contacts.DeleteAsync(new DeleteRequest

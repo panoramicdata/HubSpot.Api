@@ -20,7 +20,7 @@ public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 	{
 		var createRequest = new CreateRequest
 		{
-			Properties = new Dictionary<string, object?>
+			Properties = new Dictionary<string, string>
 			{
 				{ "name", "Test Inc."},
 				{ "website", "https://test.com/"},

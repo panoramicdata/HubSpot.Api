@@ -21,6 +21,13 @@ public interface IContacts
 		CancellationToken cancellationToken = default
 	);
 
+	[Patch("/crm/v3/objects/contacts/{id}")]
+	Task<HubSpotObject> PatchAsync(
+		string id,
+		[Body] HubSpotPatchObject hubSpotObject,
+		CancellationToken cancellationToken = default
+	);
+
 	[Get("/crm/v3/objects/contacts")]
 	Task<CrmPage> GetPageAsync(
 		int? limit = null,

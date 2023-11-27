@@ -4,7 +4,7 @@ public class HubSpotObject
 {
 	public required string Id { get; set; }
 
-	public required IDictionary<string, object?> Properties { get; set; }
+	public required IDictionary<string, string> Properties { get; set; }
 
 	public required DateTime CreatedAt { get; set; }
 
