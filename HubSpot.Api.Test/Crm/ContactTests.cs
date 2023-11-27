@@ -16,6 +16,45 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 	}
 
 	[Fact]
+	public async void SearchAsync_ByEmail_Succeeds()
+	{
+		var page = await Client.Crm.Contacts.SearchAsync(new SearchRequest
+		{
+			After = "",
+			FilterGroups =
+			[
+				new() {
+					Filters =
+					[
+						new Filter
+						{
+							PropertyName = "email",
+							Operator = FilterOperator.Eq,
+							Value = "david.bond@panoramicdata.com"
+						}
+					]
+				}
+			],
+			Limit = 100,
+			Properties =
+			[
+				"email",
+				"firstname",
+				"lastname",
+				"phone",
+				"company",
+				"website"
+			],
+			Sorts =
+			[
+				"email"
+			]
+		});
+
+		page.Results.Should().NotBeEmpty();
+	}
+
+	[Fact]
 	public async void CreateReadUpdateAndDelete_Succeeds()
 	{
 		var createRequest = new CreateRequest

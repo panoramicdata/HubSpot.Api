@@ -10,5 +10,7 @@ public class SearchRequest
 
 	public required List<string> Properties { get; set; }
 
+	public required List<string> Sorts { get; set; }
+
 	public required List<FilterGroup> FilterGroups { get; set; }
 }

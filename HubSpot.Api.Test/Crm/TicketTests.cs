@@ -42,6 +42,9 @@ public class TicketTests(ITestOutputHelper testOutputHelper) : TestBase(testOutp
 					}
 					]
 				}
+			],
+			Sorts = [
+				"createdate"
 			]
 		});
 		page.Results.Should().NotBeEmpty();

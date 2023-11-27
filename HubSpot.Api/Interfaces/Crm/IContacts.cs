@@ -37,4 +37,10 @@ public interface IContacts
 		[Body] DeleteRequest deleteRequest,
 		CancellationToken cancellationToken = default
 	);
+
+	[Post("/crm/v3/objects/contacts/search")]
+	Task<CrmPage> SearchAsync(
+		[Body] SearchRequest searchRequest,
+		CancellationToken cancellationToken = default
+	);
 }
