@@ -15,5 +15,11 @@ public interface IDeals
 		bool? archived = null,
 		CancellationToken cancellationToken = default
 	);
+
+	[Post("/crm/v3/objects/deals/search")]
+	Task<CrmPage> SearchAsync(
+		[Body] SearchRequest searchRequest,
+		CancellationToken cancellationToken = default
+	);
 }
 

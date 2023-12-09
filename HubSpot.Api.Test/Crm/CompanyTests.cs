@@ -59,4 +59,46 @@ public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 			.Companies
 			.ArchiveAsync(createdObject.Id);
 	}
+
+	[Fact]
+	public async void SearchAsync_ByDomain_Succeeds()
+	{
+		var page = await Client
+			.Crm
+			.Companies
+			.SearchAsync(
+				new SearchRequest
+				{
+					After = "",
+					FilterGroups =
+					[
+						new()
+						{
+							Filters =
+							[
+								new Filter
+								{
+									PropertyName = "domain",
+									Operator = FilterOperator.Eq,
+									Value = "panoramicdata.com"
+								}
+							]
+						}
+					],
+					Limit = 100,
+					Properties =
+					[
+						"domain",
+						"company",
+						"website"
+					],
+					Sorts =
+					[
+						"domain"
+					]
+				}
+			);
+
+		page.Results.Should().NotBeEmpty();
+	}
 }

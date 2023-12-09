@@ -43,4 +43,10 @@ public interface ICompanies
 		[Body] DeleteRequest deleteRequest,
 		CancellationToken cancellationToken = default
 	);
+
+	[Post("/crm/v3/objects/companies/search")]
+	Task<CrmPage> SearchAsync(
+		[Body] SearchRequest searchRequest,
+		CancellationToken cancellationToken = default
+	);
 }
