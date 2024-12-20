@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Divergic.Logging.Xunit" Version="4.3.0" />
+		<PackageReference Include="Divergic.Logging.Xunit" Version="4.3.1" />
 		<PackageReference Include="FluentAssertions" Version="7.0.0" />
 		<PackageReference Include="FluentAssertions.Analyzers" Version="0.34.1">
 			<PrivateAssets>all</PrivateAssets>
