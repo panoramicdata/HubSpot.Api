@@ -7,7 +7,7 @@
 		<Authors>Panoramic Data Limited</Authors>
 		<Company>Panoramic Data Limited</Company>
 		<Description>HubSpot API client for .NET</Description>
-		<Copyright>Copyright © Panoramic Data Limited 2023</Copyright>
+		<Copyright>Copyright © Panoramic Data Limited 2025</Copyright>
 		<PackageIcon>Icon.png</PackageIcon>
 		<PackageTags>HubSpot API REST</PackageTags>
 		<RepositoryType>git</RepositoryType>
