@@ -31,4 +31,7 @@ public class Crm(HttpClient httpClient, RefitSettings refitSettings)
 
 	public ITickets Tickets { get; init; }
 		= RestService.For<ITickets>(httpClient, refitSettings);
+    
+    public ITasks Tasks { get; init; }
+        = RestService.For<ITasks>(httpClient, refitSettings);
 }
