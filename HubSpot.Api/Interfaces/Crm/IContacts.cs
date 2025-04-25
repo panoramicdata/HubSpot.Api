@@ -1,10 +1,17 @@
 ﻿using HubSpot.Api.Models;
+using HubSpot.Api.Models.Crm;
 using Refit;
 
 namespace HubSpot.Api.Interfaces.Crm;
 
 public interface IContacts
 {
+	[Post("/crm/v3/associations/contacts/companies/batch/create")]
+	Task<HubSpotObject> AssociateWithCompany(
+		[Body] CreateAssociationRequest associateRequest,
+		CancellationToken cancellationToken = default
+	);
+
 	[Post("/crm/v3/objects/contacts")]
 	Task<HubSpotObject> CreateAsync(
 		[Body] CreateRequest createRequest,

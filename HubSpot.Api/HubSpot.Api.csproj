@@ -24,7 +24,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Upgraded to .NET 9 and resolved Refit package vulnerability</PackageReleaseNotes>
+		<PackageReleaseNotes>Added AssociateWithCompany to Companies and Deals</PackageReleaseNotes>
 		<NeutralLanguage>en-001</NeutralLanguage>
 	</PropertyGroup>
 
