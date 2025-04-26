@@ -1,4 +1,4 @@
-﻿using HubSpot.Api.Models;
+﻿using HubSpot.Api.Models.Crm;
 using System.Net;
 
 namespace HubSpot.Api.Exceptions;

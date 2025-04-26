@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit.Abstractions;
 
-namespace HubSpot.Api.Test.Csm;
+namespace HubSpot.Api.Test.Cms;
 
 public class DealTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
 {

@@ -1,4 +1,4 @@
-﻿using HubSpot.Api.Models;
+﻿using HubSpot.Api.Models.Crm;
 using Refit;
 
 namespace HubSpot.Api.Interfaces.Crm;

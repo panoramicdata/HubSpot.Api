@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using HubSpot.Api.Exceptions;
 using HubSpot.Api.Models;
+using HubSpot.Api.Models.Crm;
 using System.Net;
 using Xunit.Abstractions;
 

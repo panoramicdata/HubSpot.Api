@@ -1,10 +1,13 @@
-﻿namespace HubSpot.Api.Models;
+﻿namespace HubSpot.Api.Models.Crm;
 
 public class HubSpotObject
 {
 	public required string Id { get; set; }
 
-	public required IDictionary<string, string> Properties { get; set; }
+	/// <summary>
+	/// The Properties. They are now optional, because certain endpoints (such as Owners) do NOT return Properties!!!
+	/// </summary>
+	public IDictionary<string, string>? Properties { get; set; } = new Dictionary<string, string>();
 
 	public required DateTime CreatedAt { get; set; }
 

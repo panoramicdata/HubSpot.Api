@@ -1,5 +1,5 @@
 ﻿using HubSpot.Api.Exceptions;
-using HubSpot.Api.Models;
+using HubSpot.Api.Models.Crm;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 

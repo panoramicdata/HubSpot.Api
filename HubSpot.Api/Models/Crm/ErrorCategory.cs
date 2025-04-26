@@ -1,4 +1,4 @@
-﻿namespace HubSpot.Api.Models;
+﻿namespace HubSpot.Api.Models.Crm;
 
 public enum ErrorCategory
 {
