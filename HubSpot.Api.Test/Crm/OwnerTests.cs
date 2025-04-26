@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using HubSpot.Api.Models;
 using Xunit.Abstractions;
 
 namespace HubSpot.Api.Test.Crm;

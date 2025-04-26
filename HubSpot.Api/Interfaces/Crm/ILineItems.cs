@@ -6,7 +6,7 @@ namespace HubSpot.Api.Interfaces.Crm;
 public interface ILineItems
 {
 	[Get("/crm/v3/objects/line_items")]
-	Task<CrmPage> GetPageAsync(
+	Task<CrmPage<HubSpotObjectWithProperties>> GetPageAsync(
 		int? limit = null,
 		string? after = null,
 		ICollection<string>? properties = null,
