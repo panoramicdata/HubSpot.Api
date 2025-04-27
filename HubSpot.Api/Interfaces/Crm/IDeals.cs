@@ -7,19 +7,19 @@ namespace HubSpot.Api.Interfaces.Crm;
 public interface IDeals
 {
 	[Post("/crm/v3/associations/deals/companies/batch/create")]
-	Task<HubSpotObjectWithProperties> AssociateWithCompany(
+	Task<HubSpotDeal> AssociateWithCompany(
 		[Body] CreateAssociationRequest associateRequest,
 		CancellationToken cancellationToken = default
 	);
 
 	[Post("/crm/v3/objects/deals")]
-	Task<HubSpotObjectWithProperties> CreateAsync(
+	Task<HubSpotDeal> CreateAsync(
 		[Body] CreateRequest createRequest,
 		CancellationToken cancellationToken = default
 	);
 
 	[Get("/crm/v3/objects/deals/{id}")]
-	Task<HubSpotObjectWithProperties> GetAsync(
+	Task<HubSpotDeal> GetAsync(
 		string id,
 		[Query] IReadOnlyList<string>? properties = null,
 		[Query] IReadOnlyList<string>? propertiesWithHistory = null,
@@ -29,14 +29,14 @@ public interface IDeals
 	);
 
 	[Patch("/crm/v3/objects/deals/{id}")]
-	Task<HubSpotObjectWithProperties> PatchAsync(
+	Task<HubSpotDeal> PatchAsync(
 		string id,
 		[Body] HubSpotPatchObject hubSpotObject,
 		CancellationToken cancellationToken = default
 	);
 
 	[Get("/crm/v3/objects/deals")]
-	Task<CrmPage<HubSpotObjectWithProperties>> GetPageAsync(
+	Task<CrmPage<HubSpotDeal>> GetPageAsync(
 		int? limit = null,
 		string? after = null,
 		ICollection<string>? properties = null,
@@ -59,7 +59,7 @@ public interface IDeals
 	);
 
 	[Post("/crm/v3/objects/deals/search")]
-	Task<CrmPage<HubSpotObjectWithProperties>> SearchAsync(
+	Task<CrmPage<HubSpotDeal>> SearchAsync(
 		[Body] SearchRequest searchRequest,
 		CancellationToken cancellationToken = default
 	);

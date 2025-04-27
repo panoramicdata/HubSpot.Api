@@ -7,13 +7,13 @@ namespace HubSpot.Api.Interfaces.Crm;
 public interface IProducts
 {
 	[Post("/crm/v3/objects/products")]
-	Task<HubSpotObjectWithProperties> CreateAsync(
+	Task<HubSpotProduct> CreateAsync(
 		[Body] CreateRequest createRequest,
 		CancellationToken cancellationToken = default
 	);
 
 	[Get("/crm/v3/objects/products")]
-	Task<CrmPage<HubSpotObjectWithProperties>> GetPageAsync(
+	Task<CrmPage<HubSpotProduct>> GetPageAsync(
 		int? limit = null,
 		string? after = null,
 		ICollection<string>? properties = null,
@@ -24,7 +24,7 @@ public interface IProducts
 	);
 
 	[Get("/crm/v3/objects/products/{id}")]
-	Task<HubSpotObjectWithProperties> GetAsync(
+	Task<HubSpotProduct> GetAsync(
 		string id,
 		[Query] IReadOnlyList<string>? properties = null,
 		[Query] IReadOnlyList<string>? propertiesWithHistory = null,
@@ -46,7 +46,7 @@ public interface IProducts
 	);
 
 	[Post("/crm/v3/objects/products/search")]
-	Task<CrmPage<HubSpotObjectWithProperties>> SearchAsync(
+	Task<CrmPage<HubSpotProduct>> SearchAsync(
 		[Body] SearchRequest searchRequest,
 		CancellationToken cancellationToken = default
 	);

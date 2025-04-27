@@ -2,7 +2,7 @@
 
 namespace HubSpot.Api.Models.Crm;
 
-public class HubSpotOwnerObject : HubSpotCrmBaseObject
+public class HubSpotOwner : HubSpotObject
 {
 	public required string Email { get; set; }
 

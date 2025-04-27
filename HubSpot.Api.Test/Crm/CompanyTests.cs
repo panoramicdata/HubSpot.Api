@@ -29,7 +29,7 @@ public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 			Associations = []
 		};
 
-		HubSpotObjectWithProperties createdObject;
+		HubSpotCompany createdObject;
 		try
 		{
 			createdObject = await Client.Crm.Companies.CreateAsync(createRequest);
@@ -38,7 +38,7 @@ public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		catch (HubSpotApiErrorException e) when (e.StatusCode == HttpStatusCode.Conflict)
 		{
 			e.Error.Category.Should().Be(ErrorCategory.Conflict);
-			createdObject = new HubSpotObjectWithProperties
+			createdObject = new HubSpotCompany
 			{
 				Id = e.Message.Split(' ').Last(),
 				Properties = createRequest.Properties,

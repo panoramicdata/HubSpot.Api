@@ -6,7 +6,7 @@ namespace HubSpot.Api.Interfaces.Crm;
 public interface IQuotes
 {
 	[Get("/crm/v3/objects/quotes")]
-	Task<CrmPage<HubSpotObjectWithProperties>> GetPageAsync(
+	Task<CrmPage<HubSpotQuote>> GetPageAsync(
 		int? limit = null,
 		string? after = null,
 		ICollection<string>? properties = null,

@@ -1,6 +1,6 @@
 ﻿namespace HubSpot.Api.Models.Crm.Base;
 
-public abstract class HubSpotCrmBaseObject
+public abstract class HubSpotObject
 {
 	public required string Id { get; set; }
 

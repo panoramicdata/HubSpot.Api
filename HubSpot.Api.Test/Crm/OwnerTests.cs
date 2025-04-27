@@ -10,5 +10,6 @@ public class OwnerTests(ITestOutputHelper testOutputHelper) : TestBase(testOutpu
 	{
 		var page = await Client.Crm.Owners.GetPageAsync();
 		page.Results.Should().NotBeEmpty();
+		page.Results.Should().AllSatisfy(x => x.Type.Should().Be("PERSON"));
 	}
 }

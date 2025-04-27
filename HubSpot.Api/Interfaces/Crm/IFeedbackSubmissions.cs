@@ -6,7 +6,7 @@ namespace HubSpot.Api.Interfaces.Crm;
 public interface IFeedbackSubmissions
 {
 	[Get("/crm/v3/objects/feedback_submissions")]
-	Task<CrmPage<HubSpotObjectWithProperties>> GetPageAsync(
+	Task<CrmPage<HubSpotFeedbackSubmission>> GetPageAsync(
 		int? limit = null,
 		string? after = null,
 		ICollection<string>? properties = null,

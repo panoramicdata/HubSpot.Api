@@ -2,7 +2,7 @@
 
 namespace HubSpot.Api.Models.Crm;
 
-public class CrmPage<TObject> where TObject : HubSpotCrmBaseObject
+public class CrmPage<TObject> where TObject : HubSpotObject
 {
 	public int? Total { get; set; }
 

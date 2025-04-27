@@ -7,19 +7,19 @@ namespace HubSpot.Api.Interfaces.Crm;
 public interface IContacts
 {
 	[Post("/crm/v3/associations/contacts/companies/batch/create")]
-	Task<HubSpotObjectWithProperties> AssociateWithCompany(
+	Task<HubSpotContact> AssociateWithCompany(
 		[Body] CreateAssociationRequest associateRequest,
 		CancellationToken cancellationToken = default
 	);
 
 	[Post("/crm/v3/objects/contacts")]
-	Task<HubSpotObjectWithProperties> CreateAsync(
+	Task<HubSpotContact> CreateAsync(
 		[Body] CreateRequest createRequest,
 		CancellationToken cancellationToken = default
 	);
 
 	[Get("/crm/v3/objects/contacts/{id}")]
-	Task<HubSpotObjectWithProperties> GetAsync(
+	Task<HubSpotContact> GetAsync(
 		string id,
 		[Query] IReadOnlyList<string>? properties = null,
 		[Query] IReadOnlyList<string>? propertiesWithHistory = null,
@@ -29,14 +29,14 @@ public interface IContacts
 	);
 
 	[Patch("/crm/v3/objects/contacts/{id}")]
-	Task<HubSpotObjectWithProperties> PatchAsync(
+	Task<HubSpotContact> PatchAsync(
 		string id,
 		[Body] HubSpotPatchObject hubSpotObject,
 		CancellationToken cancellationToken = default
 	);
 
 	[Get("/crm/v3/objects/contacts")]
-	Task<CrmPage<HubSpotObjectWithProperties>> GetPageAsync(
+	Task<CrmPage<HubSpotContact>> GetPageAsync(
 		int? limit = null,
 		string? after = null,
 		ICollection<string>? properties = null,
@@ -53,7 +53,7 @@ public interface IContacts
 	);
 
 	[Post("/crm/v3/objects/contacts/search")]
-	Task<CrmPage<HubSpotObjectWithProperties>> SearchAsync(
+	Task<CrmPage<HubSpotContact>> SearchAsync(
 		[Body] SearchRequest searchRequest,
 		CancellationToken cancellationToken = default
 	);

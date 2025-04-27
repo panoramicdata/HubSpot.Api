@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using HubSpot.Api.Models;
 using HubSpot.Api.Models.Crm;
 using Xunit.Abstractions;
 

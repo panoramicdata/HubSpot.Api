@@ -32,7 +32,7 @@ public class DealTests(ITestOutputHelper testOutputHelper) : TestBase(testOutput
 			Associations = []
 		};
 
-		HubSpotObjectWithProperties createdObject;
+		HubSpotDeal createdObject;
 		try
 		{
 			createdObject = await Client.Crm.Deals.CreateAsync(createRequest);
@@ -41,7 +41,7 @@ public class DealTests(ITestOutputHelper testOutputHelper) : TestBase(testOutput
 		catch (HubSpotApiErrorException e) when (e.StatusCode == HttpStatusCode.Conflict)
 		{
 			e.Error.Category.Should().Be(ErrorCategory.Conflict);
-			createdObject = new HubSpotObjectWithProperties
+			createdObject = new HubSpotDeal
 			{
 				Id = e.Message.Split(' ').Last(),
 				Properties = createRequest.Properties,
