@@ -1,14 +1,14 @@
-﻿using HubSpot.Api.Models;
-using HubSpot.Api.Models.Crm;
+﻿using HubSpot.Api.Models.Crm;
 using Refit;
 
 namespace HubSpot.Api.Interfaces.Crm;
 
 public interface IContacts
 {
-	[Post("/crm/v3/associations/contacts/companies/batch/create")]
-	Task<HubSpotContact> AssociateWithCompany(
-		[Body] CreateAssociationRequest associateRequest,
+	// This could be made generic so that a Contact could be associated with other items
+	[Post("/crm/v3/associations/contacts/company/batch/create")]
+	Task<object> AssociateWithCompany(
+		[Body] CreateAssociationRequest associationRequest,
 		CancellationToken cancellationToken = default
 	);
 

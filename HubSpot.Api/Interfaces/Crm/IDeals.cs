@@ -1,5 +1,4 @@
-﻿using HubSpot.Api.Models;
-using HubSpot.Api.Models.Crm;
+﻿using HubSpot.Api.Models.Crm;
 using Refit;
 
 namespace HubSpot.Api.Interfaces.Crm;
@@ -7,7 +6,7 @@ namespace HubSpot.Api.Interfaces.Crm;
 public interface IDeals
 {
 	[Post("/crm/v3/associations/deals/companies/batch/create")]
-	Task<HubSpotDeal> AssociateWithCompany(
+	Task<object> AssociateWithCompany(
 		[Body] CreateAssociationRequest associateRequest,
 		CancellationToken cancellationToken = default
 	);

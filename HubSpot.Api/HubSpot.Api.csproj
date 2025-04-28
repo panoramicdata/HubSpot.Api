@@ -24,7 +24,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageReleaseNotes>Created classes that inherit from base types instead of using the same HubSpotObject everywhere</PackageReleaseNotes>
+		<PackageReleaseNotes>Added IAssocations interface with ability to get various associations. Added more unit tests. Ability to create various associations works</PackageReleaseNotes>
 		<NeutralLanguage>en-001</NeutralLanguage>
 	</PropertyGroup>
 

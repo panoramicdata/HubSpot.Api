@@ -1,4 +1,5 @@
-﻿using HubSpot.Api.Sections;
+﻿using HubSpot.Api.Converters;
+using HubSpot.Api.Sections;
 using Refit;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -17,7 +18,11 @@ public class HubSpotClient : IDisposable
 		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
 		Converters =
 		{
-			new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseUpper)
+			// Custom converter for AssociationType
+			new AssociationTypeConverter(), 
+
+			// General-purpose enum converter
+			new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseUpper),
 		}
 	});
 

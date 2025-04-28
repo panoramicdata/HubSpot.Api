@@ -5,6 +5,9 @@ namespace HubSpot.Api.Sections;
 
 public class Crm(HttpClient httpClient, RefitSettings refitSettings)
 {
+	public IAssociations Associations { get; init; }
+		= RestService.For<IAssociations>(httpClient, refitSettings);
+
 	public ICompanies Companies { get; init; }
 		= RestService.For<ICompanies>(httpClient, refitSettings);
 

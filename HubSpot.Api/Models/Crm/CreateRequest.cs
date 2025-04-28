@@ -1,6 +1,4 @@
-﻿using HubSpot.Api.Models.Crm;
-
-namespace HubSpot.Api.Models;
+﻿namespace HubSpot.Api.Models.Crm;
 
 public class CreateRequest
 {
