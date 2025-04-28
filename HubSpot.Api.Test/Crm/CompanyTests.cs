@@ -10,6 +10,13 @@ namespace HubSpot.Api.Test.Crm;
 public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
 {
 	[Fact]
+	public async Task GetProperties_Succeeds()
+	{
+		var properties = await Client.Crm.Companies.GetProperties();
+		properties.Should().NotBeEmpty();
+	}
+
+	[Fact]
 	public async void GetPageAsync_Succeeds()
 	{
 		var page = await Client.Crm.Companies.GetPageAsync();

@@ -33,6 +33,10 @@ public interface IProducts
 		CancellationToken cancellationToken = default
 	);
 
+	[Get("/crm/v3/objects/products/properties")]
+	Task<List<string>> GetProperties(
+		CancellationToken cancellationToken = default);
+
 	[Delete("/crm/v3/objects/products/{id}")]
 	Task ArchiveAsync(
 		string id,

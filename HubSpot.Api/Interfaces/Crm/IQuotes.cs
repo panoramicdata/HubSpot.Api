@@ -15,4 +15,8 @@ public interface IQuotes
 		bool? archived = null,
 		CancellationToken cancellationToken = default
 	);
+
+	[Get("/crm/v3/objects/quotes/properties")]
+	Task<List<string>> GetProperties(
+		CancellationToken cancellationToken = default);
 }

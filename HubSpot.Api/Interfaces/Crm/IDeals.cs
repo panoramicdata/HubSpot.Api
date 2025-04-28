@@ -28,6 +28,10 @@ public interface IDeals
 		CancellationToken cancellationToken = default
 	);
 
+	[Get("/crm/v3/objects/deals/properties")]
+	Task<List<string>> GetProperties(
+		CancellationToken cancellationToken = default);
+
 	[Patch("/crm/v3/objects/deals/{id}")]
 	Task<HubSpotDeal> PatchAsync(
 		string id,

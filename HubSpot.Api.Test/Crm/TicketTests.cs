@@ -7,6 +7,13 @@ namespace HubSpot.Api.Test.Crm;
 public class TicketTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
 {
 	[Fact]
+	public async Task GetProperties_Succeeds()
+	{
+		var properties = await Client.Crm.Tickets.GetProperties();
+		properties.Should().NotBeEmpty();
+	}
+
+	[Fact]
 	public async void SearchAsync_Succeeds()
 	{
 		var page = await Client.Crm.Tickets.SearchAsync(new SearchRequest

@@ -46,6 +46,10 @@ public interface IContacts
 		CancellationToken cancellationToken = default
 	);
 
+	[Get("/crm/v3/objects/contacts/properties")]
+	Task<List<string>> GetProperties(
+		CancellationToken cancellationToken = default);
+
 	[Post("/crm/v3/objects/contacts/gdpr-delete")]
 	Task DeleteAsync(
 		[Body] DeleteRequest deleteRequest,

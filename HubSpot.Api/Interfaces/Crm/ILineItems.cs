@@ -15,4 +15,8 @@ public interface ILineItems
 		bool? archived = null,
 		CancellationToken cancellationToken = default
 	);
+
+	[Get("/crm/v3/objects/line_items/properties")]
+	Task<List<string>> GetProperties(
+		CancellationToken cancellationToken = default);
 }
