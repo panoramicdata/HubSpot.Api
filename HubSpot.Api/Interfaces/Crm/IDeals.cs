@@ -8,8 +8,12 @@ public interface IDeals
 	[Post("/crm/v3/associations/deals/companies/batch/create")]
 	Task<object> AssociateWithCompany(
 		[Body] CreateAssociationRequest associateRequest,
-		CancellationToken cancellationToken = default
-	);
+		CancellationToken cancellationToken = default);
+
+	[Post("/crm/v3/associations/deals/contacts/batch/create")]
+	Task<object> AssociateWithContact(
+		[Body] CreateAssociationRequest associateRequest,
+		CancellationToken cancellationToken = default);
 
 	[Post("/crm/v3/objects/deals")]
 	Task<HubSpotDeal> CreateAsync(

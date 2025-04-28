@@ -5,6 +5,17 @@ namespace HubSpot.Api.Interfaces.Crm;
 
 public interface ICompanies
 {
+
+	[Post("/crm/v3/associations/companies/contacts/batch/create")]
+	Task<object> AssociateWithContact(
+		[Body] CreateAssociationRequest associationRequest,
+		CancellationToken cancellationToken = default);
+
+	[Post("/crm/v3/associations/companies/deals/batch/create")]
+	Task<object> AssociateWithDeal(
+		[Body] CreateAssociationRequest associationRequest,
+		CancellationToken cancellationToken = default);
+
 	[Post("/crm/v3/objects/companies")]
 	Task<HubSpotCompany> CreateAsync(
 		[Body] CreateRequest createRequest,

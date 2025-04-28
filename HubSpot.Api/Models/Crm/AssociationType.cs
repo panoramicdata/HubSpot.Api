@@ -17,6 +17,9 @@ public enum AssociationType
 	[JsonPropertyName("contact_to_company_unlabeled")]
 	ContactToCompanyUnlabelled,
 
+	[JsonPropertyName("contact_to_deal")]
+	ContactToDeal,
+
 	#endregion
 
 	#region Company To XXX
@@ -45,6 +48,9 @@ public enum AssociationType
 
 	[JsonPropertyName("deal_to_company_unlabeled")]
 	DealToCompanyUnlabelled,
+
+	[JsonPropertyName("deal_to_contact")]
+	DealToContact
 
 	#endregion
 }

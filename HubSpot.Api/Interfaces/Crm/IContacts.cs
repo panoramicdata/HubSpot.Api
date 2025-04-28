@@ -6,11 +6,15 @@ namespace HubSpot.Api.Interfaces.Crm;
 public interface IContacts
 {
 	// This could be made generic so that a Contact could be associated with other items
-	[Post("/crm/v3/associations/contacts/company/batch/create")]
+	[Post("/crm/v3/associations/contacts/companies/batch/create")]
 	Task<object> AssociateWithCompany(
 		[Body] CreateAssociationRequest associationRequest,
-		CancellationToken cancellationToken = default
-	);
+		CancellationToken cancellationToken = default);
+
+	[Post("/crm/v3/associations/contacts/deals/batch/create")]
+	Task<object> AssociateWithDeal(
+		[Body] CreateAssociationRequest associationRequest,
+		CancellationToken cancellationToken = default);
 
 	[Post("/crm/v3/objects/contacts")]
 	Task<HubSpotContact> CreateAsync(
