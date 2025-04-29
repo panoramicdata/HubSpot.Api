@@ -124,7 +124,6 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		await Client.Crm.Contacts.DeleteAsync(new DeleteRequest
 		{
 			ObjectId = createdObject.Id
-		}
-		);
+		});
 	}
 }

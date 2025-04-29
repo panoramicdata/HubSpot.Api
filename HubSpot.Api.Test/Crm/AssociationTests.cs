@@ -18,7 +18,6 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 				[
 					new()
 					{
-						// Robert Limbrey
 						Id = "1351",
 					}
 				]
@@ -56,7 +55,6 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 				[
 					new()
 					{
-						// R2UT - cannot use PDL as we have no associated Deals
 						Id = "8614251743",
 					}
 				]
@@ -75,7 +73,6 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 				[
 					new()
 					{
-						// R2UT - cannot use PDL as we have no associated Deals
 						Id = "9152131272",
 					}
 				]
@@ -138,7 +135,6 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 						},
 						To = new ObjectId
 						{
-							// Panoramic Data
 							Id = "8689909238"
 						},
 						Type = AssociationType.ContactToCompany
