@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 appsettings.json
+
+#Ignore vscode AI rules
+.github\instructions\codacy.instructions.md

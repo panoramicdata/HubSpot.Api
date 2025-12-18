@@ -1,5 +1,5 @@
 ﻿namespace HubSpot.Api.Sections;
 
-public class Webhooks()
+public class Webhooks
 {
 }

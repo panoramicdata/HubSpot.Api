@@ -1,5 +1,5 @@
 ﻿namespace HubSpot.Api.Sections;
 
-public class BusinessUnits()
+public class BusinessUnits
 {
 }

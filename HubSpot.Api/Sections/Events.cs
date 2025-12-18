@@ -1,5 +1,5 @@
 ﻿namespace HubSpot.Api.Sections;
 
-public class Events()
+public class Events
 {
 }

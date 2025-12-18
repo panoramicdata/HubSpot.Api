@@ -1,5 +1,5 @@
 ﻿namespace HubSpot.Api.Sections;
 
-public class CommunicationPreferences()
+public class CommunicationPreferences
 {
 }

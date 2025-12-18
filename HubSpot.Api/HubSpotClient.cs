@@ -12,7 +12,7 @@ public class HubSpotClient : IDisposable
 	private readonly HttpClient _httpClient;
 	private bool disposedValue;
 
-	internal static SystemTextJsonContentSerializer SystemTextJsonContentSerializer = new(new JsonSerializerOptions
+	internal static readonly SystemTextJsonContentSerializer SystemTextJsonContentSerializer = new(new JsonSerializerOptions
 	{
 		PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 		DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
