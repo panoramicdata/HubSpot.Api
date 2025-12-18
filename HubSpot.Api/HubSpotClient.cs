@@ -44,17 +44,17 @@ public class HubSpotClient : IDisposable
 			ContentSerializer = SystemTextJsonContentSerializer
 		};
 
-		Analytics = new(_httpClient, refitSettings);
-		Auth = new(_httpClient, refitSettings);
-		Automation = new(_httpClient, refitSettings);
-		BusinessUnits = new(_httpClient, refitSettings);
-		CommunicationPreferences = new(_httpClient, refitSettings);
-		Conversations = new(_httpClient, refitSettings);
+		Analytics = new();
+		Auth = new();
+		Automation = new();
+		BusinessUnits = new();
+		CommunicationPreferences = new();
+		Conversations = new();
 		Cms = new(_httpClient, refitSettings);
 		Crm = new(_httpClient, refitSettings);
-		Events = new(_httpClient, refitSettings);
-		Marketing = new(_httpClient, refitSettings);
-		Webhooks = new(_httpClient, refitSettings);
+		Events = new();
+		Marketing = new();
+		Webhooks = new();
 	}
 
 	public Analytics Analytics { get; }

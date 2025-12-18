@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Xunit.Abstractions;
+﻿using System.Text.Json;
 
 namespace HubSpot.Api.Test;
 
@@ -7,18 +6,19 @@ public abstract class TestBase(ITestOutputHelper testOutputHelper) : IDisposable
 {
 	private HubSpotClient? _client;
 	private bool disposedValue;
-	private TestConfiguration? _configuration;
 	private readonly ITestOutputHelper _testOutputHelper = testOutputHelper;
+
+	protected static CancellationToken CancellationToken => TestContext.Current.CancellationToken;
 
 	private TestConfiguration Configuration
 	{
 		get
 		{
 			// Have we already created this?
-			if (_configuration is not null)
+			if (field is not null)
 			{
 				// Yes - return that one
-				return _configuration;
+				return field;
 			}
 			// No - we need to create one
 
@@ -34,12 +34,10 @@ public abstract class TestBase(ITestOutputHelper testOutputHelper) : IDisposable
 			// Yes
 
 			// Load in the config
-			_configuration = JsonConvert.DeserializeObject<TestConfiguration>(File.ReadAllText(fileInfo.FullName))
+			field = JsonSerializer.Deserialize<TestConfiguration>(File.ReadAllText(fileInfo.FullName))
 				?? throw new FormatException("Invalid appsettings.json file format.");
 
-			_configuration.HubSpotClientOptions.LoggerFactory = _testOutputHelper.BuildLoggerFactory();
-
-			return _configuration;
+			return field;
 		}
 	}
 

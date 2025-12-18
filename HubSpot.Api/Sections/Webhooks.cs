@@ -1,7 +1,5 @@
-﻿using Refit;
+﻿namespace HubSpot.Api.Sections;
 
-namespace HubSpot.Api.Sections;
-
-public class Webhooks(HttpClient httpClient, RefitSettings refitSettings)
+public class Webhooks()
 {
 }

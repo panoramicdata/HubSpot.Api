@@ -1,29 +1,21 @@
 using FluentAssertions;
 using HubSpot.Api.Exceptions;
-using HubSpot.Api.Models.Crm;
+using HubSpot.Api.Models;
 using System.Net;
-using Xunit.Abstractions;
 
 namespace HubSpot.Api.Test.Crm;
 
 public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
 {
 	[Fact]
-	public async Task GetProperties_Succeeds()
+	public async Task GetPageAsync_Succeeds()
 	{
-		var properties = await Client.Crm.Companies.GetProperties();
-		properties.Should().NotBeEmpty();
-	}
-
-	[Fact]
-	public async void GetPageAsync_Succeeds()
-	{
-		var page = await Client.Crm.Companies.GetPageAsync();
+		var page = await Client.Crm.Companies.GetPageAsync(cancellationToken: CancellationToken);
 		page.Results.Should().NotBeEmpty();
 	}
 
 	[Fact]
-	public async void CreateReadUpdateAndDelete_Succeeds()
+	public async Task CreateReadUpdateAndDelete_Succeeds()
 	{
 		var createRequest = new CreateRequest
 		{
@@ -35,16 +27,16 @@ public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 			Associations = []
 		};
 
-		HubSpotCompany createdObject;
+		HubSpotObject createdObject;
 		try
 		{
-			createdObject = await Client.Crm.Companies.CreateAsync(createRequest);
+			createdObject = await Client.Crm.Companies.CreateAsync(createRequest, cancellationToken: CancellationToken);
 			createdObject.Should().NotBeNull();
 		}
 		catch (HubSpotApiErrorException e) when (e.StatusCode == HttpStatusCode.Conflict)
 		{
 			e.Error.Category.Should().Be(ErrorCategory.Conflict);
-			createdObject = new HubSpotCompany
+			createdObject = new HubSpotObject
 			{
 				Id = e.Message.Split(' ').Last(),
 				Properties = createRequest.Properties,
@@ -55,7 +47,7 @@ public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		}
 
 		// Re-read the item
-		var readObject = await Client.Crm.Companies.GetAsync(createdObject.Id);
+		var readObject = await Client.Crm.Companies.GetAsync(createdObject.Id, cancellationToken: CancellationToken);
 		readObject.Should().NotBeNull();
 		readObject.Id.Should().Be(createdObject.Id);
 		readObject.Properties.Should().NotBeEmpty();
@@ -64,11 +56,11 @@ public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		await Client
 			.Crm
 			.Companies
-			.ArchiveAsync(createdObject.Id);
+			.ArchiveAsync(createdObject.Id, cancellationToken: CancellationToken);
 	}
 
 	[Fact]
-	public async void SearchAsync_ByDomain_Succeeds()
+	public async Task SearchAsync_ByDomain_Succeeds()
 	{
 		var page = await Client
 			.Crm
@@ -103,7 +95,7 @@ public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 					[
 						"domain"
 					]
-				}
+				}, cancellationToken: CancellationToken
 			);
 
 		page.Results.Should().NotBeEmpty();

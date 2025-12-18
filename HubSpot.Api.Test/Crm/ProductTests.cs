@@ -1,27 +1,19 @@
 ﻿using FluentAssertions;
-using HubSpot.Api.Models.Crm;
-using Xunit.Abstractions;
+using HubSpot.Api.Models;
 
 namespace HubSpot.Api.Test.Crm;
 
 public class ProductTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
 {
 	[Fact]
-	public async Task GetProperties_Succeeds()
+	public async Task GetPageAsync_Succeeds()
 	{
-		var properties = await Client.Crm.Products.GetProperties();
-		properties.Should().NotBeEmpty();
-	}
-
-	[Fact]
-	public async void GetPageAsync_Succeeds()
-	{
-		var page = await Client.Crm.Products.GetPageAsync();
+		var page = await Client.Crm.Products.GetPageAsync(cancellationToken: CancellationToken);
 		page.Results.Should().NotBeEmpty();
 	}
 
 	[Fact]
-	public async void SearchAsync_ByName_Succeeds()
+	public async Task SearchAsync_ByName_Succeeds()
 	{
 		var page = await Client
 			.Crm
@@ -54,7 +46,7 @@ public class ProductTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 					[
 						"name"
 					]
-				}
+				}, cancellationToken: CancellationToken
 			);
 
 		page.Results.Should().NotBeEmpty();

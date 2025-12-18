@@ -1,29 +1,21 @@
 ﻿using FluentAssertions;
 using HubSpot.Api.Exceptions;
-using HubSpot.Api.Models.Crm;
+using HubSpot.Api.Models;
 using System.Net;
-using Xunit.Abstractions;
 
 namespace HubSpot.Api.Test.Crm;
 
 public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
 {
 	[Fact]
-	public async Task GetProperties_Succeeds()
+	public async Task GetPageAsync_Succeeds()
 	{
-		var properties = await Client.Crm.Contacts.GetProperties();
-		properties.Should().NotBeEmpty();
-	}
-
-	[Fact]
-	public async void GetPageAsync_Succeeds()
-	{
-		var page = await Client.Crm.Contacts.GetPageAsync();
+		var page = await Client.Crm.Contacts.GetPageAsync(cancellationToken: CancellationToken);
 		page.Results.Should().NotBeEmpty();
 	}
 
 	[Fact]
-	public async void SearchAsync_ByEmail_Succeeds()
+	public async Task SearchAsync_ByEmail_Succeeds()
 	{
 		var page = await Client.Crm.Contacts.SearchAsync(new SearchRequest
 		{
@@ -56,13 +48,13 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 			[
 				"email"
 			]
-		});
+		}, cancellationToken: CancellationToken);
 
 		page.Results.Should().NotBeEmpty();
 	}
 
 	[Fact]
-	public async void CreateReadUpdateAndDelete_Succeeds()
+	public async Task CreateReadUpdateAndDelete_Succeeds()
 	{
 		var createRequest = new CreateRequest
 		{
@@ -78,16 +70,16 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 			Associations = []
 		};
 
-		HubSpotContact createdObject;
+		HubSpotObject createdObject;
 		try
 		{
-			createdObject = await Client.Crm.Contacts.CreateAsync(createRequest);
+			createdObject = await Client.Crm.Contacts.CreateAsync(createRequest, cancellationToken: CancellationToken);
 			createdObject.Should().NotBeNull();
 		}
 		catch (HubSpotApiErrorException e) when (e.StatusCode == HttpStatusCode.Conflict)
 		{
 			e.Error.Category.Should().Be(ErrorCategory.Conflict);
-			createdObject = new HubSpotContact
+			createdObject = new HubSpotObject
 			{
 				Id = e.Message.Split(' ').Last(),
 				Properties = createRequest.Properties,
@@ -98,7 +90,7 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		}
 
 		// Re-read the item
-		var readObject = await Client.Crm.Contacts.GetAsync(createdObject.Id);
+		var readObject = await Client.Crm.Contacts.GetAsync(createdObject.Id, cancellationToken: CancellationToken);
 		readObject.Should().NotBeNull();
 		readObject.Id.Should().Be(createdObject.Id);
 		readObject.Properties.Should().NotBeEmpty();
@@ -111,10 +103,10 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 				{ "firstname", "Robert"},
 			}
 		};
-		readObject = await Client.Crm.Contacts.PatchAsync(readObject.Id, patchInfo);
+		_ = await Client.Crm.Contacts.PatchAsync(readObject.Id, patchInfo, cancellationToken: CancellationToken);
 
 		// Re-read the item and check the update
-		readObject = await Client.Crm.Contacts.GetAsync(createdObject.Id);
+		readObject = await Client.Crm.Contacts.GetAsync(createdObject.Id, cancellationToken: CancellationToken);
 		readObject.Should().NotBeNull();
 		readObject.Id.Should().Be(createdObject.Id);
 		readObject.Properties.Should().NotBeEmpty();
@@ -124,6 +116,7 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		await Client.Crm.Contacts.DeleteAsync(new DeleteRequest
 		{
 			ObjectId = createdObject.Id
-		});
+		}, cancellationToken: CancellationToken
+		);
 	}
 }
