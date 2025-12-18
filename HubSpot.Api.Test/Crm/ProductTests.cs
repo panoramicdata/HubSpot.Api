@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using HubSpot.Api.Models;
+using HubSpot.Api.Models.Crm;
 
 namespace HubSpot.Api.Test.Crm;
 

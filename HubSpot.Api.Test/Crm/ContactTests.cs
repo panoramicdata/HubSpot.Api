@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using HubSpot.Api.Exceptions;
-using HubSpot.Api.Models;
+using HubSpot.Api.Models.Crm;
+using HubSpot.Api.Models.Crm.Base;
 using System.Net;
 
 namespace HubSpot.Api.Test.Crm;
@@ -70,7 +71,7 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 			Associations = []
 		};
 
-		HubSpotObject createdObject;
+		HubSpotContact createdObject;
 		try
 		{
 			createdObject = await Client.Crm.Contacts.CreateAsync(createRequest, cancellationToken: CancellationToken);
@@ -79,7 +80,7 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		catch (HubSpotApiErrorException e) when (e.StatusCode == HttpStatusCode.Conflict)
 		{
 			e.Error.Category.Should().Be(ErrorCategory.Conflict);
-			createdObject = new HubSpotObject
+			createdObject = new HubSpotContact
 			{
 				Id = e.Message.Split(' ').Last(),
 				Properties = createRequest.Properties,
@@ -116,7 +117,6 @@ public class ContactTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		await Client.Crm.Contacts.DeleteAsync(new DeleteRequest
 		{
 			ObjectId = createdObject.Id
-		}, cancellationToken: CancellationToken
-		);
+		}, cancellationToken: CancellationToken);
 	}
 }

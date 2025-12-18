@@ -2,7 +2,6 @@
 using HubSpot.Api.Exceptions;
 using HubSpot.Api.Models.Crm;
 using System.Net;
-using Xunit.Abstractions;
 
 namespace HubSpot.Api.Test.Crm;
 
@@ -11,7 +10,7 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 	[Fact]
 	public async Task GetContactToCompanyAssociations_Succeeds()
 	{
-		var assocations = await Client.Crm.Associations.GetContactToCompanyAssociations(
+		var associations = await Client.Crm.Associations.GetContactToCompanyAssociations(
 			new GetAssociationsFor
 			{
 				Inputs =
@@ -21,15 +20,15 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 						Id = "1351",
 					}
 				]
-			});
+			}, cancellationToken: CancellationToken);
 
-		assocations.Results.Should().NotBeEmpty();
+		associations.Results.Should().NotBeEmpty();
 	}
 
 	[Fact]
 	public async Task GetCompanyToContactAssociations_Succeeds()
 	{
-		var assocations = await Client.Crm.Associations.GetCompanyToContactAssociations(
+		var associations = await Client.Crm.Associations.GetCompanyToContactAssociations(
 			new GetAssociationsFor
 			{
 				Inputs =
@@ -40,15 +39,15 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 						Id = "8689909238",
 					}
 				]
-			});
+			}, cancellationToken: CancellationToken);
 
-		assocations.Results.Should().NotBeEmpty();
+		associations.Results.Should().NotBeEmpty();
 	}
 
 	[Fact]
 	public async Task GetCompanyToDealAssociations_Succeeds()
 	{
-		var assocations = await Client.Crm.Associations.GetCompanyToDealAssociations(
+		var associations = await Client.Crm.Associations.GetCompanyToDealAssociations(
 			new GetAssociationsFor
 			{
 				Inputs =
@@ -58,15 +57,15 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 						Id = "8614251743",
 					}
 				]
-			});
+			}, cancellationToken: CancellationToken);
 
-		assocations.Results.Should().NotBeEmpty();
+		associations.Results.Should().NotBeEmpty();
 	}
 
 	[Fact]
 	public async Task GetDealToCompanyAssociations_Succeeds()
 	{
-		var assocations = await Client.Crm.Associations.GetDealToCompanyAssociations(
+		var associations = await Client.Crm.Associations.GetDealToCompanyAssociations(
 			new GetAssociationsFor
 			{
 				Inputs =
@@ -76,9 +75,9 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 						Id = "9152131272",
 					}
 				]
-			});
+			}, cancellationToken: CancellationToken);
 
-		assocations.Results.Should().NotBeEmpty();
+		associations.Results.Should().NotBeEmpty();
 	}
 
 	[Fact]
@@ -98,7 +97,7 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 		HubSpotContact createdObject;
 		try
 		{
-			createdObject = await Client.Crm.Contacts.CreateAsync(createRequest);
+			createdObject = await Client.Crm.Contacts.CreateAsync(createRequest, cancellationToken: CancellationToken);
 			createdObject.Should().NotBeNull();
 		}
 		catch (HubSpotApiErrorException e) when (e.StatusCode == HttpStatusCode.Conflict)
@@ -115,7 +114,7 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 		}
 
 		// Re-read the item
-		var readObject = await Client.Crm.Contacts.GetAsync(createdObject.Id);
+		var readObject = await Client.Crm.Contacts.GetAsync(createdObject.Id, cancellationToken: CancellationToken);
 		readObject.Should().NotBeNull();
 		readObject.Id.Should().Be(createdObject.Id);
 		readObject.Properties.Should().NotBeEmpty();
@@ -140,9 +139,9 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 						Type = AssociationType.ContactToCompany
 					}
 				]
-			});
+			}, cancellationToken: CancellationToken);
 
-			var assocations =
+			var associations =
 				await Client.Crm.Associations.GetContactToCompanyAssociations(
 					new GetAssociationsFor
 					{
@@ -153,13 +152,13 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 								Id = readObject.Id,
 							}
 						]
-					});
+					}, cancellationToken: CancellationToken);
 
-			assocations.Results.Should().NotBeEmpty();
-			assocations.Results[0].To[0].Type.Should().Be(AssociationType.ContactToCompany);
-			assocations.Results[0].To[0].Id.Should().Be("8689909238");
+			associations.Results.Should().NotBeEmpty();
+			associations.Results[0].To[0].Type.Should().Be(AssociationType.ContactToCompany);
+			associations.Results[0].To[0].Id.Should().Be("8689909238");
 		}
-		catch (Exception ex)
+		catch
 		{
 			// Didn't work but we still want to delete the created Contact
 		}
@@ -169,7 +168,7 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 			await Client.Crm.Contacts.DeleteAsync(new DeleteRequest
 			{
 				ObjectId = createdObject.Id
-			});
+			}, cancellationToken: CancellationToken);
 		}
 	}
 }

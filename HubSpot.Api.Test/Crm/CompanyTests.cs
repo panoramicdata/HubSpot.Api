@@ -1,6 +1,6 @@
 using FluentAssertions;
 using HubSpot.Api.Exceptions;
-using HubSpot.Api.Models;
+using HubSpot.Api.Models.Crm;
 using System.Net;
 
 namespace HubSpot.Api.Test.Crm;
@@ -27,7 +27,7 @@ public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 			Associations = []
 		};
 
-		HubSpotObject createdObject;
+		HubSpotCompany createdObject;
 		try
 		{
 			createdObject = await Client.Crm.Companies.CreateAsync(createRequest, cancellationToken: CancellationToken);
@@ -36,7 +36,7 @@ public class CompanyTests(ITestOutputHelper testOutputHelper) : TestBase(testOut
 		catch (HubSpotApiErrorException e) when (e.StatusCode == HttpStatusCode.Conflict)
 		{
 			e.Error.Category.Should().Be(ErrorCategory.Conflict);
-			createdObject = new HubSpotObject
+			createdObject = new HubSpotCompany
 			{
 				Id = e.Message.Split(' ').Last(),
 				Properties = createRequest.Properties,
