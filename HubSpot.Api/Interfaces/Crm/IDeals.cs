@@ -71,4 +71,3 @@ public interface IDeals
 		CancellationToken cancellationToken = default
 	);
 }
-
