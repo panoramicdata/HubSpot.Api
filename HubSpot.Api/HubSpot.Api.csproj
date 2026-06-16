@@ -27,6 +27,7 @@
 		<PackageReleaseNotes>Upgraded to .NET 10</PackageReleaseNotes>
 		<NeutralLanguage>en-001</NeutralLanguage>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<NoWarn>$(NoWarn);CA1873</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
