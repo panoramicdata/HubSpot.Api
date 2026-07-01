@@ -1,4 +1,6 @@
 ﻿using HubSpot.Api.Converters;
+using HubSpot.Api.Exceptions;
+using HubSpot.Api.Models.Crm;
 using HubSpot.Api.Sections;
 using Refit;
 using System.Text.Json;
@@ -41,7 +43,37 @@ public class HubSpotClient : IDisposable
 		var refitSettings = new RefitSettings
 		{
 			CollectionFormat = CollectionFormat.Multi,
-			ContentSerializer = SystemTextJsonContentSerializer
+			ContentSerializer = SystemTextJsonContentSerializer,
+			ExceptionFactory = async responseMessage =>
+			{
+				if (responseMessage.IsSuccessStatusCode)
+				{
+					return null;
+				}
+
+				HubSpotError? hubSpotError = null;
+				try
+				{
+					hubSpotError = await SystemTextJsonContentSerializer
+						.FromHttpContentAsync<HubSpotError>(responseMessage.Content, CancellationToken.None)
+						.ConfigureAwait(false);
+				}
+				catch { }
+
+				if (hubSpotError is not null)
+				{
+					return new HubSpotApiErrorException(responseMessage.StatusCode, hubSpotError);
+				}
+
+				var content = string.Empty;
+				try
+				{
+					content = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+				}
+				catch { }
+
+				return new HubSpotApiDeserializationException(content);
+			}
 		};
 
 		Analytics = new();

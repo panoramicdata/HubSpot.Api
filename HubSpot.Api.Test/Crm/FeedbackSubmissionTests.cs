@@ -1,9 +1,8 @@
-﻿using FluentAssertions;
 using HubSpot.Api.Exceptions;
 
 namespace HubSpot.Api.Test.Crm;
 
-public class FeedbackSubmissionTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
+public class FeedbackSubmissionTests(ITestOutputHelper testOutputHelper, Fixture fixture) : TestWithOutput(testOutputHelper, fixture)
 {
 	[Fact]
 	public async Task GetPageAsync_Succeeds()

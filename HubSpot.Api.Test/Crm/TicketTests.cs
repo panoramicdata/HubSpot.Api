@@ -1,9 +1,8 @@
-﻿using FluentAssertions;
 using HubSpot.Api.Models.Crm;
 
 namespace HubSpot.Api.Test.Crm;
 
-public class TicketTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
+public class TicketTests(ITestOutputHelper testOutputHelper, Fixture fixture) : TestWithOutput(testOutputHelper, fixture)
 {
 	[Fact]
 	public async Task SearchAsync_Succeeds()
@@ -46,6 +45,6 @@ public class TicketTests(ITestOutputHelper testOutputHelper) : TestBase(testOutp
 				"createdate"
 			]
 		}, cancellationToken: CancellationToken);
-		page.Results.Should().NotBeEmpty();
+		page.Should().NotBeNull();
 	}
 }

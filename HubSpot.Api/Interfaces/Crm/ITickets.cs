@@ -9,7 +9,7 @@ public interface ITickets
 	Task<List<string>> GetProperties(
 		CancellationToken cancellationToken = default);
 
-	[Post("/crm/v3/objects/tickets")]
+	[Post("/crm/v3/objects/tickets/search")]
 	Task<CrmPage<HubSpotTicket>> SearchAsync(
 		[Body] SearchRequest searchRequest,
 		CancellationToken cancellationToken = default

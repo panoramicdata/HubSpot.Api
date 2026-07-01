@@ -1,5 +1,4 @@
 ﻿using HubSpot.Api.Exceptions;
-using HubSpot.Api.Models.Crm;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -86,16 +85,6 @@ internal sealed class AuthenticatedHttpClientHandler : HttpClientHandler
 
 			switch (statusCodeInt)
 			{
-				case 403: // Forbidden
-				case 409: // Conflict
-					var responseContentString = await httpResponseMessage
-						.Content!
-						.ReadAsStringAsync(cancellationToken)
-						.ConfigureAwait(false);
-					var hubSpotError = await HubSpotClient.SystemTextJsonContentSerializer
-						.FromHttpContentAsync<HubSpotError>(httpResponseMessage.Content, cancellationToken)
-						?? throw new HubSpotApiDeserializationException(responseContentString);
-					throw new HubSpotApiErrorException(httpResponseMessage.StatusCode, hubSpotError);
 				case 429:
 					// Back off by the requested amount.
 					var headers = httpResponseMessage.Headers;

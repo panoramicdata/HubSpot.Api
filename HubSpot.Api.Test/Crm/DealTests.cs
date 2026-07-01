@@ -1,11 +1,10 @@
-﻿using FluentAssertions;
 using HubSpot.Api.Exceptions;
 using HubSpot.Api.Models.Crm;
 using System.Net;
 
 namespace HubSpot.Api.Test.Crm;
 
-public class DealTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
+public class DealTests(ITestOutputHelper testOutputHelper, Fixture fixture) : TestWithOutput(testOutputHelper, fixture)
 {
 	[Fact]
 	public async Task GetPageAsync_Succeeds()

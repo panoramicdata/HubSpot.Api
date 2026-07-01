@@ -1,8 +1,6 @@
-﻿using FluentAssertions;
-
 namespace HubSpot.Api.Test.Crm;
 
-public class QuoteTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
+public class QuoteTests(ITestOutputHelper testOutputHelper, Fixture fixture) : TestWithOutput(testOutputHelper, fixture)
 {
 	[Fact]
 	public async Task GetPageAsync_Succeeds()

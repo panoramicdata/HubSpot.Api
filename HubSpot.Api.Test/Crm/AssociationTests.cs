@@ -1,11 +1,10 @@
-﻿using FluentAssertions;
 using HubSpot.Api.Exceptions;
 using HubSpot.Api.Models.Crm;
 using System.Net;
 
 namespace HubSpot.Api.Test.Crm;
 
-public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(testOutputHelper)
+public class AssociationTests(ITestOutputHelper testOutputHelper, Fixture fixture) : TestWithOutput(testOutputHelper, fixture)
 {
 	[Fact]
 	public async Task GetContactToCompanyAssociations_Succeeds()
@@ -54,7 +53,7 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 				[
 					new()
 					{
-						Id = "8614251743",
+						Id = "8612263671",
 					}
 				]
 			}, cancellationToken: CancellationToken);
@@ -72,7 +71,7 @@ public class AssociationTests(ITestOutputHelper testOutputHelper) : TestBase(tes
 				[
 					new()
 					{
-						Id = "9152131272",
+						Id = "9149763809",
 					}
 				]
 			}, cancellationToken: CancellationToken);
