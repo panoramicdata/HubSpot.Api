@@ -1,3 +1,5 @@
+root = true
+
 [*]
 vsspell_section_id = 0890221f0efe448ea584949265c989b5
 vsspell_ignored_words_0890221f0efe448ea584949265c989b5 = File:HubSpot.Api.dic
