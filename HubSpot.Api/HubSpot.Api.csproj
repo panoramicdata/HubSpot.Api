@@ -20,9 +20,30 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <NeutralLanguage>en-001</NeutralLanguage>
     <NoWarn>$(NoWarn);CA1873</NoWarn>
-    <PackageReleaseNotes>See CHANGELOG.md</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      Security fix: sensitive HTTP headers are now redacted in diagnostic output.
+
+      Previously AuthenticatedHttpClientHandler passed the whole HttpRequestMessage to the logger,
+      and its ToString() renders every header. The handler sets an Authorization header carrying the
+      access token twenty lines earlier, so a usable token was written verbatim on every attempt of
+      the retry loop. The response side did the same, exposing Set-Cookie.
+
+      Authorization, Proxy-Authorization, Cookie, Set-Cookie and common API key headers are now
+      redacted, case-insensitively, on request and response, along with any vendor-prefixed variant
+      whose name ends in "Authorization". The scheme and credential length are retained, so failures
+      remain diagnosable.
+
+      Breaking change to message text: the Request and Response log messages are now rendered by this
+      library rather than by HttpRequestMessage.ToString(). The shape is the same but code parsing
+      those messages should be checked.
+
+      Consumers should upgrade and then review existing Trace logs for previously captured tokens.
+    </PackageReleaseNotes>
     <NeutralResourcesLanguage>en</NeutralResourcesLanguage>
   </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="HubSpot.Api.Test" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" Pack="true" PackagePath="" />
     <None Include="../README.md" Pack="true" PackagePath="" />
