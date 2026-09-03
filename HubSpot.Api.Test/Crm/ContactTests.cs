@@ -1,7 +1,5 @@
-using HubSpot.Api.Exceptions;
 using HubSpot.Api.Models.Crm;
 using HubSpot.Api.Models.Crm.Base;
-using System.Net;
 
 namespace HubSpot.Api.Test.Crm;
 
@@ -17,38 +15,18 @@ public class ContactTests(ITestOutputHelper testOutputHelper, Fixture fixture) :
 	[Fact]
 	public async Task SearchAsync_ByEmail_Succeeds()
 	{
-		var page = await Client.Crm.Contacts.SearchAsync(new SearchRequest
-		{
-			After = "",
-			FilterGroups =
-			[
-				new() {
-					Filters =
-					[
-						new Filter
-						{
-							PropertyName = "email",
-							Operator = FilterOperator.Eq,
-							Value = "david.bond@panoramicdata.com"
-						}
-					]
-				}
-			],
-			Limit = 100,
-			Properties =
-			[
+		var page = await Client.Crm.Contacts.SearchAsync(
+			CrmTestHelpers.SearchFor(
+				"email",
+				FilterOperator.Eq,
+				"david.bond@panoramicdata.com",
 				"email",
 				"firstname",
 				"lastname",
 				"phone",
 				"company",
-				"website"
-			],
-			Sorts =
-			[
-				"email"
-			]
-		}, cancellationToken: CancellationToken);
+				"website"),
+			cancellationToken: CancellationToken);
 
 		page.Results.Should().NotBeEmpty();
 	}
@@ -70,30 +48,12 @@ public class ContactTests(ITestOutputHelper testOutputHelper, Fixture fixture) :
 			Associations = []
 		};
 
-		HubSpotContact createdObject;
-		try
-		{
-			createdObject = await Client.Crm.Contacts.CreateAsync(createRequest, cancellationToken: CancellationToken);
-			createdObject.Should().NotBeNull();
-		}
-		catch (HubSpotApiErrorException e) when (e.StatusCode == HttpStatusCode.Conflict)
-		{
-			e.Error.Category.Should().Be(ErrorCategory.Conflict);
-			createdObject = new HubSpotContact
-			{
-				Id = e.Message.Split(' ').Last(),
-				Properties = createRequest.Properties,
-				Archived = false,
-				CreatedAt = DateTime.UtcNow,
-				UpdatedAt = DateTime.UtcNow
-			};
-		}
+		var createdId = await CrmTestHelpers.CreateOrRecoverIdAsync(
+			createRequest,
+			(request, cancellationToken) => Client.Crm.Contacts.CreateAsync(request, cancellationToken));
 
 		// Re-read the item
-		var readObject = await Client.Crm.Contacts.GetAsync(createdObject.Id, cancellationToken: CancellationToken);
-		readObject.Should().NotBeNull();
-		readObject.Id.Should().Be(createdObject.Id);
-		readObject.Properties.Should().NotBeEmpty();
+		var readObject = await ReadContactAsync(createdId);
 
 		// Update the item
 		var patchInfo = new HubSpotPatchObject
@@ -106,16 +66,18 @@ public class ContactTests(ITestOutputHelper testOutputHelper, Fixture fixture) :
 		_ = await Client.Crm.Contacts.PatchAsync(readObject.Id, patchInfo, cancellationToken: CancellationToken);
 
 		// Re-read the item and check the update
-		readObject = await Client.Crm.Contacts.GetAsync(createdObject.Id, cancellationToken: CancellationToken);
-		readObject.Should().NotBeNull();
-		readObject.Id.Should().Be(createdObject.Id);
-		readObject.Properties.Should().NotBeEmpty();
+		readObject = await ReadContactAsync(createdId);
 		readObject.Properties["firstname"].Should().Be("Robert");
 
 		// Delete the item
 		await Client.Crm.Contacts.DeleteAsync(new DeleteRequest
 		{
-			ObjectId = createdObject.Id
+			ObjectId = createdId
 		}, cancellationToken: CancellationToken);
 	}
+
+	private Task<HubSpotContact> ReadContactAsync(string id)
+		=> CrmTestHelpers.ReadAndVerifyAsync(
+			id,
+			(contactId, cancellationToken) => Client.Crm.Contacts.GetAsync(contactId, cancellationToken: cancellationToken));
 }

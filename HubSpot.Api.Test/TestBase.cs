@@ -1,1 +1,0 @@
-namespace HubSpot.Api.Test;

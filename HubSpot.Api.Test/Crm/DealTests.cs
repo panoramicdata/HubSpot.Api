@@ -1,6 +1,4 @@
-using HubSpot.Api.Exceptions;
 using HubSpot.Api.Models.Crm;
-using System.Net;
 
 namespace HubSpot.Api.Test.Crm;
 
@@ -29,36 +27,20 @@ public class DealTests(ITestOutputHelper testOutputHelper, Fixture fixture) : Te
 			Associations = []
 		};
 
-		HubSpotDeal createdObject;
-		try
-		{
-			createdObject = await Client.Crm.Deals.CreateAsync(createRequest, cancellationToken: CancellationToken);
-			createdObject.Should().NotBeNull();
-		}
-		catch (HubSpotApiErrorException e) when (e.StatusCode == HttpStatusCode.Conflict)
-		{
-			e.Error.Category.Should().Be(ErrorCategory.Conflict);
-			createdObject = new HubSpotDeal
-			{
-				Id = e.Message.Split(' ').Last(),
-				Properties = createRequest.Properties,
-				Archived = false,
-				CreatedAt = DateTime.UtcNow,
-				UpdatedAt = DateTime.UtcNow
-			};
-		}
+		var createdId = await CrmTestHelpers.CreateOrRecoverIdAsync(
+			createRequest,
+			(request, cancellationToken) => Client.Crm.Deals.CreateAsync(request, cancellationToken));
 
 		// Re-read the item
-		var readObject = await Client.Crm.Deals.GetAsync(createdObject.Id, cancellationToken: CancellationToken);
-		readObject.Should().NotBeNull();
-		readObject.Id.Should().Be(createdObject.Id);
-		readObject.Properties.Should().NotBeEmpty();
+		_ = await CrmTestHelpers.ReadAndVerifyAsync(
+			createdId,
+			(id, cancellationToken) => Client.Crm.Deals.GetAsync(id, cancellationToken: cancellationToken));
 
 		// Delete the item
 		await Client
 			.Crm
 			.Deals
-			.ArchiveAsync(createdObject.Id, cancellationToken: CancellationToken);
+			.ArchiveAsync(createdId, cancellationToken: CancellationToken);
 	}
 
 	[Fact]
@@ -68,39 +50,17 @@ public class DealTests(ITestOutputHelper testOutputHelper, Fixture fixture) : Te
 			.Crm
 			.Deals
 			.SearchAsync(
-				new SearchRequest
-				{
-					After = "",
-					FilterGroups =
-					[
-						new()
-						{
-							Filters =
-							[
-								new Filter
-								{
-									PropertyName = "dealname",
-									Operator = FilterOperator.Neq,
-									Value = "WOO"
-								}
-							]
-						}
-					],
-					Limit = 100,
-					Properties =
-					[
-						"dealname",
-						"amount",
-						"closedate",
-						"pipeline",
-						"dealstage",
-						"hubspot_owner_id"
-					],
-					Sorts =
-					[
-						"dealname"
-					]
-				}, cancellationToken: CancellationToken
+				CrmTestHelpers.SearchFor(
+					"dealname",
+					FilterOperator.Neq,
+					"WOO",
+					"dealname",
+					"amount",
+					"closedate",
+					"pipeline",
+					"dealstage",
+					"hubspot_owner_id"),
+				cancellationToken: CancellationToken
 			);
 
 		page.Results.Should().NotBeEmpty();

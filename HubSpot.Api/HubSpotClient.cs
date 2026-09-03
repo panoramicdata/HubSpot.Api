@@ -44,36 +44,7 @@ public class HubSpotClient : IDisposable
 		{
 			CollectionFormat = CollectionFormat.Multi,
 			ContentSerializer = SystemTextJsonContentSerializer,
-			ExceptionFactory = async responseMessage =>
-			{
-				if (responseMessage.IsSuccessStatusCode)
-				{
-					return null;
-				}
-
-				HubSpotError? hubSpotError = null;
-				try
-				{
-					hubSpotError = await SystemTextJsonContentSerializer
-						.FromHttpContentAsync<HubSpotError>(responseMessage.Content, CancellationToken.None)
-						.ConfigureAwait(false);
-				}
-				catch { }
-
-				if (hubSpotError is not null)
-				{
-					return new HubSpotApiErrorException(responseMessage.StatusCode, hubSpotError);
-				}
-
-				var content = string.Empty;
-				try
-				{
-					content = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
-				}
-				catch { }
-
-				return new HubSpotApiDeserializationException(content);
-			}
+			ExceptionFactory = CreateExceptionAsync
 		};
 
 		Analytics = new();
@@ -87,6 +58,57 @@ public class HubSpotClient : IDisposable
 		Events = new();
 		Marketing = new();
 		Webhooks = new();
+	}
+
+	/// <summary>
+	/// Builds the exception that Refit throws for an unsuccessful response.
+	/// </summary>
+	/// <remarks>
+	/// This runs on the failure path of every request, so it must always yield an exception
+	/// describing the response rather than throwing one of its own.
+	/// </remarks>
+	private static async ValueTask<Exception?> CreateExceptionAsync(HttpResponseMessage responseMessage)
+	{
+		if (responseMessage.IsSuccessStatusCode)
+		{
+			return null;
+		}
+
+		HubSpotError? hubSpotError = null;
+		try
+		{
+			hubSpotError = await SystemTextJsonContentSerializer
+				.FromHttpContentAsync<HubSpotError>(responseMessage.Content, CancellationToken.None)
+				.ConfigureAwait(false);
+		}
+		catch (Exception)
+		{
+			// Intentionally ignored. An error body that is absent, truncated or not in HubSpot's
+			// documented error shape is expected — gateways and proxies return HTML, for example —
+			// and is handled below by reporting the raw content instead. Every failure mode here is
+			// a failure to read or deserialize the body, so there is nothing to recover: the raw
+			// content carried by HubSpotApiDeserializationException is strictly more diagnostic.
+		}
+
+		if (hubSpotError is not null)
+		{
+			return new HubSpotApiErrorException(responseMessage.StatusCode, hubSpotError);
+		}
+
+		var content = string.Empty;
+		try
+		{
+			content = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+		}
+		catch (Exception)
+		{
+			// Intentionally ignored. If the body cannot be read at all — a connection dropped
+			// mid-response, for instance — there is no content to report, and throwing from the
+			// exception factory would replace the response's own failure with an unrelated error.
+			// The empty content is reported instead, which still identifies the failed request.
+		}
+
+		return new HubSpotApiDeserializationException(content);
 	}
 
 	public Analytics Analytics { get; }

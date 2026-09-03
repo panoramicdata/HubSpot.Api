@@ -1,25 +1,17 @@
-using HubSpot.Api.Exceptions;
 using HubSpot.Api.Models.Crm;
-using System.Net;
 
 namespace HubSpot.Api.Test.Crm;
 
 public class AssociationTests(ITestOutputHelper testOutputHelper, Fixture fixture) : TestWithOutput(testOutputHelper, fixture)
 {
+	// Panoramic Data
+	private const string PanoramicDataCompanyId = "8689909238";
+
 	[Fact]
 	public async Task GetContactToCompanyAssociations_Succeeds()
 	{
 		var associations = await Client.Crm.Associations.GetContactToCompanyAssociations(
-			new GetAssociationsFor
-			{
-				Inputs =
-				[
-					new()
-					{
-						Id = "1351",
-					}
-				]
-			}, cancellationToken: CancellationToken);
+			CrmTestHelpers.AssociationsForId("1351"), cancellationToken: CancellationToken);
 
 		associations.Results.Should().NotBeEmpty();
 	}
@@ -28,17 +20,7 @@ public class AssociationTests(ITestOutputHelper testOutputHelper, Fixture fixtur
 	public async Task GetCompanyToContactAssociations_Succeeds()
 	{
 		var associations = await Client.Crm.Associations.GetCompanyToContactAssociations(
-			new GetAssociationsFor
-			{
-				Inputs =
-				[
-					new()
-					{
-						// Panoramic Data
-						Id = "8689909238",
-					}
-				]
-			}, cancellationToken: CancellationToken);
+			CrmTestHelpers.AssociationsForId(PanoramicDataCompanyId), cancellationToken: CancellationToken);
 
 		associations.Results.Should().NotBeEmpty();
 	}
@@ -47,16 +29,7 @@ public class AssociationTests(ITestOutputHelper testOutputHelper, Fixture fixtur
 	public async Task GetCompanyToDealAssociations_Succeeds()
 	{
 		var associations = await Client.Crm.Associations.GetCompanyToDealAssociations(
-			new GetAssociationsFor
-			{
-				Inputs =
-				[
-					new()
-					{
-						Id = "8612263671",
-					}
-				]
-			}, cancellationToken: CancellationToken);
+			CrmTestHelpers.AssociationsForId("8612263671"), cancellationToken: CancellationToken);
 
 		associations.Results.Should().NotBeEmpty();
 	}
@@ -65,16 +38,7 @@ public class AssociationTests(ITestOutputHelper testOutputHelper, Fixture fixtur
 	public async Task GetDealToCompanyAssociations_Succeeds()
 	{
 		var associations = await Client.Crm.Associations.GetDealToCompanyAssociations(
-			new GetAssociationsFor
-			{
-				Inputs =
-				[
-					new()
-					{
-						Id = "9149763809",
-					}
-				]
-			}, cancellationToken: CancellationToken);
+			CrmTestHelpers.AssociationsForId("9149763809"), cancellationToken: CancellationToken);
 
 		associations.Results.Should().NotBeEmpty();
 	}
@@ -93,69 +57,20 @@ public class AssociationTests(ITestOutputHelper testOutputHelper, Fixture fixtur
 			Associations = []
 		};
 
-		HubSpotContact createdObject;
-		try
-		{
-			createdObject = await Client.Crm.Contacts.CreateAsync(createRequest, cancellationToken: CancellationToken);
-			createdObject.Should().NotBeNull();
-		}
-		catch (HubSpotApiErrorException e) when (e.StatusCode == HttpStatusCode.Conflict)
-		{
-			e.Error.Category.Should().Be(ErrorCategory.Conflict);
-			createdObject = new HubSpotContact
-			{
-				Id = e.Message.Split(' ').Last(),
-				Properties = createRequest.Properties,
-				Archived = false,
-				CreatedAt = DateTime.UtcNow,
-				UpdatedAt = DateTime.UtcNow
-			};
-		}
+		var createdId = await CrmTestHelpers.CreateOrRecoverIdAsync(
+			createRequest,
+			(request, cancellationToken) => Client.Crm.Contacts.CreateAsync(request, cancellationToken));
 
 		// Re-read the item
-		var readObject = await Client.Crm.Contacts.GetAsync(createdObject.Id, cancellationToken: CancellationToken);
-		readObject.Should().NotBeNull();
-		readObject.Id.Should().Be(createdObject.Id);
-		readObject.Properties.Should().NotBeEmpty();
+		var readObject = await CrmTestHelpers.ReadAndVerifyAsync(
+			createdId,
+			(id, cancellationToken) => Client.Crm.Contacts.GetAsync(id, cancellationToken: cancellationToken));
 
 		try
 		{
 			// Associate with a Company
-			await Client.Crm.Contacts.AssociateWithCompany(new CreateAssociationRequest
-			{
-				Inputs =
-				[
-					new()
-					{
-						From = new ObjectId
-						{
-							Id = readObject.Id,
-						},
-						To = new ObjectId
-						{
-							Id = "8689909238"
-						},
-						Type = AssociationType.ContactToCompany
-					}
-				]
-			}, cancellationToken: CancellationToken);
-
-			var associations =
-				await Client.Crm.Associations.GetContactToCompanyAssociations(
-					new GetAssociationsFor
-					{
-						Inputs =
-						[
-							new()
-							{
-								Id = readObject.Id,
-							}
-						]
-					}, cancellationToken: CancellationToken);
-
-			associations.Results.Should().NotBeEmpty();
-			associations.Results[0].To[0].Type.Should().Be(AssociationType.ContactToCompany);
-			associations.Results[0].To[0].Id.Should().Be("8689909238");
+			await AssociateContactWithCompanyAsync(readObject.Id, PanoramicDataCompanyId);
+			await VerifyContactToCompanyAssociationAsync(readObject.Id, PanoramicDataCompanyId);
 		}
 		catch
 		{
@@ -166,8 +81,38 @@ public class AssociationTests(ITestOutputHelper testOutputHelper, Fixture fixtur
 			// Delete the item
 			await Client.Crm.Contacts.DeleteAsync(new DeleteRequest
 			{
-				ObjectId = createdObject.Id
+				ObjectId = createdId
 			}, cancellationToken: CancellationToken);
 		}
+	}
+
+	private Task AssociateContactWithCompanyAsync(string contactId, string companyId)
+		=> Client.Crm.Contacts.AssociateWithCompany(new CreateAssociationRequest
+		{
+			Inputs =
+			[
+				new()
+				{
+					From = new ObjectId
+					{
+						Id = contactId,
+					},
+					To = new ObjectId
+					{
+						Id = companyId
+					},
+					Type = AssociationType.ContactToCompany
+				}
+			]
+		}, cancellationToken: CancellationToken);
+
+	private async Task VerifyContactToCompanyAssociationAsync(string contactId, string companyId)
+	{
+		var associations = await Client.Crm.Associations.GetContactToCompanyAssociations(
+			CrmTestHelpers.AssociationsForId(contactId), cancellationToken: CancellationToken);
+
+		associations.Results.Should().NotBeEmpty();
+		associations.Results[0].To[0].Type.Should().Be(AssociationType.ContactToCompany);
+		associations.Results[0].To[0].Id.Should().Be(companyId);
 	}
 }
