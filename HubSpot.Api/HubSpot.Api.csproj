@@ -10,6 +10,7 @@
     <PackageTags>HubSpot API REST</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/panoramicdata/HubSpot.Api/</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/panoramicdata/HubSpot.Api</PackageProjectUrl>
     <ApplicationIcon>HubSpot.ico</ApplicationIcon>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
