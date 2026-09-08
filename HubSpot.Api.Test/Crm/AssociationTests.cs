@@ -72,13 +72,9 @@ public class AssociationTests(ITestOutputHelper testOutputHelper, Fixture fixtur
 			await AssociateContactWithCompanyAsync(readObject.Id, PanoramicDataCompanyId);
 			await VerifyContactToCompanyAssociationAsync(readObject.Id, PanoramicDataCompanyId);
 		}
-		catch
-		{
-			// Didn't work but we still want to delete the created Contact
-		}
 		finally
 		{
-			// Delete the item
+			// Whether or not the association worked, the created Contact is still deleted.
 			await Client.Crm.Contacts.DeleteAsync(new DeleteRequest
 			{
 				ObjectId = createdId
