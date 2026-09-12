@@ -7,15 +7,19 @@ exclude_paths:
   - '**/*.exe'
   - 'TestResults/**'
 
-engines:
-  sonarcs:
-    enabled: true
-    exclude_rules:
-      # Optional parameters should not be used. The Refit interfaces in HubSpot.Api/Interfaces
-      # map optional method parameters onto optional query-string parameters, which is how Refit
-      # is meant to be used. Overloads cannot express this: an endpoint with six optional
-      # filters would need every combination of them, and Refit requires one HTTP attribute per
-      # method. The alternative — a query-object parameter per endpoint — would be a breaking
-      # change to the published API surface, and would still leave one finding per method for
-      # the conventional 'CancellationToken cancellationToken = default'.
-      - 'S2360'
+# SonarCSharp_S2360 ("optional parameters should not be used") fires 92 times across
+# HubSpot.Api/Interfaces. Every one of them is on a Refit interface, where an optional method
+# parameter *is* the optional query-string parameter — that is how Refit is meant to be used.
+# Overloads cannot express it: an endpoint with six independent optional filters would need every
+# combination of them, and Refit requires one HTTP attribute per method. A query-object parameter
+# per endpoint would be a breaking change to the published API surface, and would still leave one
+# finding per method for the conventional 'CancellationToken cancellationToken = default'.
+#
+# The pattern is therefore turned off, but NOT from this file: Codacy Cloud reads only
+# 'exclude_paths' and per-engine 'enabled'/'exclude_paths' here. An 'engines.sonarcs.exclude_rules'
+# entry lived here from 2026-09-03 and Codacy re-analysed the repository on 2026-09-08 still
+# reporting all 92 findings — the key is silently ignored. Pattern selection comes from the
+# organisation coding standard the repository follows, so the fix is to move this repository from
+# 'Panoramic Standard' (id 115783) onto 'Panoramic Standard Refit' (id 115813), which is identical
+# to the default apart from disabling SonarCSharp_S2360 and SonarCSharp_S3427. Meraki.Api — the
+# other Refit-heavy repository — already follows it.
