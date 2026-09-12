@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -22,25 +22,36 @@
     <NeutralLanguage>en-001</NeutralLanguage>
     <NoWarn>$(NoWarn);CA1873</NoWarn>
     <PackageReleaseNotes>
-      Security fix: sensitive HTTP headers are now redacted in diagnostic output.
+      Breaking change: query filters are now request objects, and CancellationToken is mandatory.
 
-      Previously AuthenticatedHttpClientHandler passed the whole HttpRequestMessage to the logger,
-      and its ToString() renders every header. The handler sets an Authorization header carrying the
-      access token twenty lines earlier, so a usable token was written verbatim on every attempt of
-      the retry loop. The response side did the same, exposing Set-Cookie.
+      The major version stays at 9 because it tracks the version of the HubSpot API this library
+      targets, not the shape of the library's own surface. Read the version number as "HubSpot API
+      v9"; it does not follow semantic versioning, so a major version that has not moved is not a
+      promise that your code still compiles. This release will not compile against existing calls.
 
-      Authorization, Proxy-Authorization, Cookie, Set-Cookie and common API key headers are now
-      redacted, case-insensitively, on request and response, along with any vendor-prefixed variant
-      whose name ends in "Authorization". The scheme and credential length are retained, so failures
-      remain diagnosable.
+      Endpoints that took a list of optional query parameters now take one request object:
 
-      Breaking change to message text: the Request and Response log messages are now rendered by this
-      library rather than by HttpRequestMessage.ToString(). The shape is the same but code parsing
-      those messages should be checked.
+        Before: GetPageAsync(limit: 10, properties: ["name"], cancellationToken: ct)
+        After:  GetPageAsync(new CrmPageRequest { Limit = 10, Properties = ["name"] }, ct)
 
-      Consumers should upgrade and then review existing Trace logs for previously captured tokens.
-    </PackageReleaseNotes>
-    <NeutralResourcesLanguage>en</NeutralResourcesLanguage>
+        Before: GetAsync(id, properties: ["name"], cancellationToken: ct)
+        After:  GetAsync(id, new CrmGetRequest { Properties = ["name"] }, ct)
+
+      CrmPageRequest derives from CrmGetRequest, adding Limit and After, so a caller that already
+      has filters for one endpoint can reuse them across object types. IDomains.GetPageAsync takes
+      DomainPageRequest. Where no filters are wanted, pass new().
+
+      Every CancellationToken parameter has lost its "= default" and is now required. Calls that
+      relied on the default will no longer compile; pass the token explicitly. Calls that passed it
+      by name (cancellationToken: ct) still compile once the new request argument is supplied.
+
+      The query string sent to HubSpot is unchanged: each request property carries an explicit
+      AliasAs, and the outgoing URI is now covered by tests that need no portal credentials.
+
+      Motivation: the optional parameters drew 92 static analysis findings, and the six-parameter
+      filter block repeated across nine interfaces was the bulk of the library's reported code
+      duplication. Both are resolved by the single shared request type.
+    </PackageReleaseNotes>    <NeutralResourcesLanguage>en</NeutralResourcesLanguage>
   </PropertyGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="HubSpot.Api.Test" />
