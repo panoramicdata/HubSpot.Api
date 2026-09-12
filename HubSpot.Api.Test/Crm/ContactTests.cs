@@ -8,7 +8,7 @@ public class ContactTests(ITestOutputHelper testOutputHelper, Fixture fixture) :
 	[Fact]
 	public async Task GetPageAsync_Succeeds()
 	{
-		var page = await Client.Crm.Contacts.GetPageAsync(cancellationToken: CancellationToken);
+		var page = await Client.Crm.Contacts.GetPageAsync(new(), CancellationToken);
 		page.Results.Should().NotBeEmpty();
 	}
 
@@ -79,5 +79,5 @@ public class ContactTests(ITestOutputHelper testOutputHelper, Fixture fixture) :
 	private Task<HubSpotContact> ReadContactAsync(string id)
 		=> CrmTestHelpers.ReadAndVerifyAsync(
 			id,
-			(contactId, cancellationToken) => Client.Crm.Contacts.GetAsync(contactId, cancellationToken: cancellationToken));
+			(contactId, cancellationToken) => Client.Crm.Contacts.GetAsync(contactId, new(), cancellationToken));
 }

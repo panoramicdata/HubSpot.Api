@@ -7,7 +7,7 @@ public class DealTests(ITestOutputHelper testOutputHelper, Fixture fixture) : Te
 	[Fact]
 	public async Task GetPageAsync_Succeeds()
 	{
-		var page = await Client.Crm.Deals.GetPageAsync(cancellationToken: CancellationToken);
+		var page = await Client.Crm.Deals.GetPageAsync(new(), CancellationToken);
 		page.Results.Should().NotBeEmpty();
 	}
 
@@ -34,7 +34,7 @@ public class DealTests(ITestOutputHelper testOutputHelper, Fixture fixture) : Te
 		// Re-read the item
 		_ = await CrmTestHelpers.ReadAndVerifyAsync(
 			createdId,
-			(id, cancellationToken) => Client.Crm.Deals.GetAsync(id, cancellationToken: cancellationToken));
+			(id, cancellationToken) => Client.Crm.Deals.GetAsync(id, new(), cancellationToken));
 
 		// Delete the item
 		await Client

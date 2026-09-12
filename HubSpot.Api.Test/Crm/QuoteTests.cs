@@ -5,7 +5,7 @@ public class QuoteTests(ITestOutputHelper testOutputHelper, Fixture fixture) : T
 	[Fact]
 	public async Task GetPageAsync_Succeeds()
 	{
-		var page = await Client.Crm.Quotes.GetPageAsync(cancellationToken: CancellationToken);
+		var page = await Client.Crm.Quotes.GetPageAsync(new(), CancellationToken);
 		page.Results.Should().NotBeEmpty();
 	}
 }

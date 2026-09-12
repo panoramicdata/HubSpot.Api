@@ -10,12 +10,12 @@ public interface IAssociations
 	[Post("/crm/v3/associations/contacts/companies/batch/read")]
 	Task<GetAssociationResponse> GetContactToCompanyAssociations(
 		[Body] GetAssociationsFor contactAssociationsFor,
-		CancellationToken cancellationToken = default);
+		CancellationToken cancellationToken);
 
 	[Post("/crm/v3/associations/contacts/deals/batch/read")]
 	Task<GetAssociationResponse> GetContactToDealAssociations(
 		[Body] GetAssociationsFor contactAssociationsFor,
-		CancellationToken cancellationToken = default);
+		CancellationToken cancellationToken);
 
 	#endregion
 
@@ -24,12 +24,12 @@ public interface IAssociations
 	[Post("/crm/v3/associations/companies/contacts/batch/read")]
 	Task<GetAssociationResponse> GetCompanyToContactAssociations(
 		[Body] GetAssociationsFor companyAssociationsFor,
-		CancellationToken cancellationToken = default);
+		CancellationToken cancellationToken);
 
 	[Post("/crm/v3/associations/companies/deals/batch/read")]
 	Task<GetAssociationResponse> GetCompanyToDealAssociations(
 		[Body] GetAssociationsFor companyAssociationsFor,
-		CancellationToken cancellationToken = default);
+		CancellationToken cancellationToken);
 
 	#endregion
 
@@ -38,12 +38,12 @@ public interface IAssociations
 	[Post("/crm/v3/associations/deals/companies/batch/read")]
 	Task<GetAssociationResponse> GetDealToCompanyAssociations(
 		[Body] GetAssociationsFor dealAssociationsFor,
-		CancellationToken cancellationToken = default);
+		CancellationToken cancellationToken);
 
 	[Post("/crm/v3/associations/deals/contacts/batch/read")]
 	Task<GetAssociationResponse> GetDealToContactAssociations(
 		[Body] GetAssociationsFor dealAssociationsFor,
-		CancellationToken cancellationToken = default);
+		CancellationToken cancellationToken);
 
 	#endregion
 }

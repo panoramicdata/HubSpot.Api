@@ -7,7 +7,7 @@ public class ProductTests(ITestOutputHelper testOutputHelper, Fixture fixture) :
 	[Fact]
 	public async Task GetPageAsync_Succeeds()
 	{
-		var page = await Client.Crm.Products.GetPageAsync(cancellationToken: CancellationToken);
+		var page = await Client.Crm.Products.GetPageAsync(new(), CancellationToken);
 		page.Results.Should().NotBeEmpty();
 	}
 

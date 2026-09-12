@@ -64,7 +64,7 @@ public class AssociationTests(ITestOutputHelper testOutputHelper, Fixture fixtur
 		// Re-read the item
 		var readObject = await CrmTestHelpers.ReadAndVerifyAsync(
 			createdId,
-			(id, cancellationToken) => Client.Crm.Contacts.GetAsync(id, cancellationToken: cancellationToken));
+			(id, cancellationToken) => Client.Crm.Contacts.GetAsync(id, new(), cancellationToken));
 
 		try
 		{
