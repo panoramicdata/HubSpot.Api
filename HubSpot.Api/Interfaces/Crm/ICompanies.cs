@@ -6,19 +6,13 @@ namespace HubSpot.Api.Interfaces.Crm;
 public interface ICompanies
 {
 	[Post("/crm/v3/associations/companies/contacts/batch/create")]
-	Task<object> AssociateWithContact(
-		[Body] CreateAssociationRequest associationRequest,
-		CancellationToken cancellationToken);
+	Task<object> AssociateWithContact([Body] CreateAssociationRequest associationRequest, CancellationToken cancellationToken);
 
 	[Post("/crm/v3/associations/companies/deals/batch/create")]
-	Task<object> AssociateWithDeal(
-		[Body] CreateAssociationRequest associationRequest,
-		CancellationToken cancellationToken);
+	Task<object> AssociateWithDeal([Body] CreateAssociationRequest dealAssociation, CancellationToken cancellationToken);
 
 	[Post("/crm/v3/objects/companies")]
-	Task<HubSpotCompany> CreateAsync(
-		[Body] CreateRequest createRequest,
-		CancellationToken cancellationToken);
+	Task<HubSpotCompany> CreateAsync([Body] CreateRequest createRequest, CancellationToken cancellationToken);
 
 	[Get("/crm/v3/objects/companies")]
 	Task<CrmPage<HubSpotCompany>> GetPageAsync(
@@ -41,12 +35,8 @@ public interface ICompanies
 		CancellationToken cancellationToken);
 
 	[Post("/crm/v3/objects/companies/gdpr-delete")]
-	Task DeleteAsync(
-		[Body] DeleteRequest deleteRequest,
-		CancellationToken cancellationToken);
+	Task DeleteAsync([Body] DeleteRequest deleteRequest, CancellationToken cancellationToken);
 
 	[Post("/crm/v3/objects/companies/search")]
-	Task<CrmPage<HubSpotCompany>> SearchAsync(
-		[Body] SearchRequest searchRequest,
-		CancellationToken cancellationToken);
+	Task<CrmPage<HubSpotCompany>> SearchAsync([Body] SearchRequest searchRequest, CancellationToken cancellationToken);
 }
