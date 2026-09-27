@@ -4,6 +4,9 @@ using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace HubSpot.Api.Test;
 
+// Every test deriving from this base calls the live HubSpot API with credentials from user
+// secrets. CI has none, so the coverage job excludes them with --filter "Category!=Integration".
+[Trait("Category", "Integration")]
 public class TestWithOutput : TestBed<Fixture>
 {
 	protected ILogger Logger { get; }
