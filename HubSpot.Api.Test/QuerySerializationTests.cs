@@ -36,6 +36,7 @@ public class QuerySerializationTests
 			HttpRequestMessage request,
 			CancellationToken cancellationToken)
 		{
+			cancellationToken.ThrowIfCancellationRequested();
 			RequestUri = request.RequestUri;
 			return Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
 			{
