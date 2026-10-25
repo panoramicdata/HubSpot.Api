@@ -21,7 +21,7 @@ internal sealed class AuthenticatedHttpClientHandler : HttpClientHandler
 			HttpRequestMessage request,
 			CancellationToken cancellationToken)
 	{
-		if (_options.ReadOnly)
+		if (_options.IsReadOnly)
 		{
 			// Simplistic ReadOnly implementation to ensure only reading from the API
 			// Check that this is a GET

@@ -12,7 +12,17 @@ public class HubSpotClientOptions
 	/// <summary>
 	/// Whether to only allow read-only operations
 	/// </summary>
-	public bool ReadOnly { get; set; }
+	public bool IsReadOnly { get; set; }
+
+	/// <summary>
+	/// Whether to only allow read-only operations
+	/// </summary>
+	[Obsolete("Use IsReadOnly")]
+	public bool ReadOnly
+	{
+		get => IsReadOnly;
+		set => IsReadOnly = value;
+	}
 
 	/// <summary>
 	/// The User-Agent to use for requests
