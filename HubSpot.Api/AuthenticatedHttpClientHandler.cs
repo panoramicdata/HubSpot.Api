@@ -79,7 +79,7 @@ internal sealed class AuthenticatedHttpClientHandler : HttpClientHandler
 	/// </summary>
 	private void PrepareRequest(HttpRequestMessage request)
 	{
-		if (_options.ReadOnly)
+		if (_options.IsReadOnly)
 		{
 			// Simplistic ReadOnly implementation to ensure only reading from the API
 			// Check that this is a GET
