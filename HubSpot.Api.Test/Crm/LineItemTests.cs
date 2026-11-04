@@ -5,7 +5,7 @@ public class LineItemTests(ITestOutputHelper testOutputHelper, Fixture fixture) 
 	[Fact]
 	public async Task GetPageAsync_Succeeds()
 	{
-		var page = await Client.Crm.LineItems.GetPageAsync(cancellationToken: CancellationToken);
+		var page = await Client.Crm.LineItems.GetPageAsync(new(), CancellationToken);
 		page.Results.Should().NotBeEmpty();
 	}
 }

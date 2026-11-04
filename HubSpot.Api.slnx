@@ -13,6 +13,7 @@
     <File Path="LICENSE" />
     <File Path="Publish.ps1" />
     <File Path="SECURITY.md" />
+    <File Path=".codacy.yml" />
   </Folder>
   <Project Path="HubSpot.Api.Test/HubSpot.Api.Test.csproj" />
   <Project Path="HubSpot.Api/HubSpot.Api.csproj" />

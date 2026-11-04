@@ -7,6 +7,11 @@
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
 		<UserSecretsId>e5ac0c26-0dcd-48cc-99d6-68b21d293788</UserSecretsId>
+		<OutputType>Exe</OutputType>
+		<!-- xunit.v3 4.x runs on Microsoft.Testing.Platform, which no longer supports the VSTest
+		     target on the .NET 10 SDK. Opt in to the MTP runner so "dotnet test" works. -->
+		<UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
 	</PropertyGroup>
 
 	<ItemGroup>

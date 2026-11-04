@@ -5,7 +5,7 @@ public class DealTests(ITestOutputHelper testOutputHelper, Fixture fixture) : Te
 	[Fact]
 	public async Task GetPageAsync_Succeeds()
 	{
-		var page = await Client.Cms.Domains.GetPageAsync(cancellationToken: CancellationToken);
+		var page = await Client.Cms.Domains.GetPageAsync(new(), CancellationToken);
 		page.Results.Should().NotBeEmpty();
 	}
 }

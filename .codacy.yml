@@ -1,0 +1,8 @@
+---
+exclude_paths:
+  - '.git/**'
+  - '**/bin/**'
+  - '**/obj/**'
+  - '**/*.dll'
+  - '**/*.exe'
+  - 'TestResults/**'

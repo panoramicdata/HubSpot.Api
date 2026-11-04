@@ -7,7 +7,7 @@ public class FeedbackSubmissionTests(ITestOutputHelper testOutputHelper, Fixture
 	[Fact]
 	public async Task GetPageAsync_Succeeds()
 	{
-		await ((Func<Task>)(() => Client.Crm.FeedbackSubmissions.GetPageAsync(cancellationToken: CancellationToken)))
+		await ((Func<Task>)(() => Client.Crm.FeedbackSubmissions.GetPageAsync(new(), CancellationToken)))
 			.Should()
 			.ThrowAsync<HubSpotApiErrorException>();
 	}
