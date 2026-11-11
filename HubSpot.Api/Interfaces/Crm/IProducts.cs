@@ -3,7 +3,7 @@ using Refit;
 
 namespace HubSpot.Api.Interfaces.Crm;
 
-public interface IProducts
+public interface IProducts : ICrmObject<HubSpotProduct>
 {
 	[Post("/crm/v3/objects/products")]
 	Task<HubSpotProduct> CreateAsync(
@@ -21,22 +21,8 @@ public interface IProducts
 		CrmGetRequest getRequest,
 		CancellationToken cancellationToken);
 
-	[Get("/crm/v3/objects/products/properties")]
-	Task<List<string>> GetProperties(
-		CancellationToken cancellationToken);
-
 	[Delete("/crm/v3/objects/products/{id}")]
 	Task ArchiveAsync(
 		string id,
-		CancellationToken cancellationToken);
-
-	[Post("/crm/v3/objects/products/gdpr-delete")]
-	Task DeleteAsync(
-		[Body] DeleteRequest deleteRequest,
-		CancellationToken cancellationToken);
-
-	[Post("/crm/v3/objects/products/search")]
-	Task<CrmPage<HubSpotProduct>> SearchAsync(
-		[Body] SearchRequest searchRequest,
 		CancellationToken cancellationToken);
 }

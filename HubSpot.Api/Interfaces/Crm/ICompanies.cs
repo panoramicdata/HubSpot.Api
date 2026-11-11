@@ -3,7 +3,7 @@ using Refit;
 
 namespace HubSpot.Api.Interfaces.Crm;
 
-public interface ICompanies
+public interface ICompanies : ICrmObject<HubSpotCompany>
 {
 	[Post("/crm/v3/associations/companies/{type}/batch/create")]
 	Task<object> AssociateWith([Body] CreateAssociationRequest associationRequest, string type, CancellationToken cancellationToken);
@@ -22,18 +22,8 @@ public interface ICompanies
 		CrmGetRequest getRequest,
 		CancellationToken cancellationToken);
 
-	[Get("/crm/v3/objects/companies/properties")]
-	Task<List<string>> GetProperties(
-		CancellationToken cancellationToken);
-
 	[Delete("/crm/v3/objects/companies/{id}")]
 	Task ArchiveAsync(
 		string id,
 		CancellationToken cancellationToken);
-
-	[Post("/crm/v3/objects/companies/gdpr-delete")]
-	Task DeleteAsync([Body] DeleteRequest deleteRequest, CancellationToken cancellationToken);
-
-	[Post("/crm/v3/objects/companies/search")]
-	Task<CrmPage<HubSpotCompany>> SearchAsync([Body] SearchRequest searchRequest, CancellationToken cancellationToken);
 }
