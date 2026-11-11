@@ -99,13 +99,13 @@ jobs:
     # The test project is an xunit v3 Microsoft.Testing.Platform application, so coverage is
     # collected by running it directly (Microsoft.Testing.Extensions.CodeCoverage) rather than
     # through "dotnet test". On Linux the executable has no ".exe" extension. The report is written
-    # to bin/Debug/net10.0/TestResults/coverage.cobertura.xml.
+    # to bin/Debug/net11.0/TestResults/coverage.cobertura.xml.
     #
     # CI runs only the tests that need no credentials. Everything deriving from TestWithOutput calls
     # the live HubSpot API with a token from user secrets, which CI does not have, and xunit.runner.json
     # sets failSkips: true, so those tests are tagged Category=Integration and filtered out here.
     - name: Run tests with coverage
-      working-directory: HubSpot.Api.Test/bin/Debug/net10.0
+      working-directory: HubSpot.Api.Test/bin/Debug/net11.0
       run: >-
         ./HubSpot.Api.Test
         --coverage
@@ -121,7 +121,7 @@ jobs:
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        coverage-reports: HubSpot.Api.Test/bin/Debug/net10.0/TestResults/coverage.cobertura.xml
+        coverage-reports: HubSpot.Api.Test/bin/Debug/net11.0/TestResults/coverage.cobertura.xml
 
     - name: Upload coverage artifact
       if: always()
@@ -129,5 +129,5 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: coverage
-        path: HubSpot.Api.Test/bin/Debug/net10.0/TestResults/coverage.cobertura.xml
+        path: HubSpot.Api.Test/bin/Debug/net11.0/TestResults/coverage.cobertura.xml
         retention-days: 7
