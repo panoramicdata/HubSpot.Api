@@ -2,6 +2,8 @@
 
 The HubSpot REST API nuget package, authored by Panoramic Data Limited.
 
+Supports .NET 11.0.
+
 [![Nuget](https://img.shields.io/nuget/v/HubSpot.Api)](https://www.nuget.org/packages/HubSpot.Api/)
 [![Nuget](https://img.shields.io/nuget/dt/HubSpot.Api)](https://www.nuget.org/packages/HubSpot.Api/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
