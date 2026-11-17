@@ -67,6 +67,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Refit" />
+    <PackageReference Include="Refit.Reflection" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources.Designer.cs">
